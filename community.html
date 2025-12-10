@@ -1,50 +1,85 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>AsIVision – קהילה / בלוג</title>
-  <link rel="stylesheet" href="css/style.css" />
+    <meta charset="UTF-8" />
+    <title>קהילה / בלוג – AsIVision</title>
+    <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <div class="container">
-    <header class="site">
-      <div class="brand-logo">
-        <img class="logo-small" src="images/logo-asivision.png" alt="AsIVision Logo" />
-      </div>
-      <nav class="top-nav">
-        <a href="index.html">דף הבית</a>
-        <a href="about.html">אודות</a>
-        <a href="examples.html">דוגמאות</a>
-        <a href="community.html">קהילה / בלוג</a>
-        <a href="contact.html">צור קשר</a>
-      </nav>
-    </header>
 
-    <main>
-      <section class="section">
-        <h1>קהילת AsIVision</h1>
-        <p>כאן יעלו פוסטים, טיפים, חידושים והמלצות על כלים וקורסים בתחום ה-AI, הווידאו והאוטומציה.</p>
-        <div class="cards">
-          <div class="card">
-            <h4>🧠 מאמרים וחדשות</h4>
-            <p>כתבות קצרות על איך AI משנה את עולם הווידאו והאוטומציה, והדרכות פרקטיות.</p>
-          </div>
-          <div class="card">
-            <h4>🎥 Vlog</h4>
-            <p>קטעי וידאו קצרים עם הדגמות, מאחורי הקלעים ורעיונות לפרויקטים.</p>
-          </div>
-          <div class="card">
-            <h4>📚 קורסים וכלים</h4>
-            <p>המלצות על קורסים, תוכנות וסביבות עבודה שיכולות לעזור לכם להתחיל.</p>
-          </div>
-        </div>
-      </section>
-    </main>
+    <!-- חובה עבור פייסבוק -->
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous"
+        src="https://connect.facebook.net/he_IL/sdk.js#xfbml=1&version=v21.0"
+        nonce="ASIVISION"></script>
 
-    <footer class="footer">
-      © 2025 AsIVision — Asaf Porat. כל הזכויות שמורות.
+    <div class="artboard">
+        <header class="site-header">
+            <img src="images/logo-asivision.png" alt="AsIVision Logo" class="site-logo">
+            <nav class="top-nav">
+                <a href="index.html"     class="key-btn">דף הבית</a>
+                <a href="about.html"     class="key-btn">אודות</a>
+                <a href="examples.html"  class="key-btn">דוגמאות</a>
+                <a href="community.html" class="key-btn">קהילה / בלוג</a>
+                <a href="contact.html"   class="key-btn">צור קשר</a>
+            </nav>
+        </header>
+
+        <main class="page-content">
+            <h1>קהילת AsIVision</h1>
+            <p>
+                כאן תוכלו לראות את הפוסטים האחרונים מהעמוד שלנו בפייסבוק,
+                להישאר מעודכנים בטיפים, חידושים ופרויקטים – ולהצטרף לשיחה בלחיצת כפתור.
+            </p>
+
+            <!-- Embed של דף הפייסבוק -->
+            <div class="fb-page"
+                 data-href="https://www.facebook.com/profile.php?id=61584429365273"
+                 data-tabs="timeline"
+                 data-width="800"
+                 data-height="600"
+                 data-small-header="false"
+                 data-adapt-container-width="true"
+                 data-hide-cover="false"
+                 data-show-facepile="true">
+                <blockquote cite="https://www.facebook.com/profile.php?id=61584429365273"
+                            class="fb-xfbml-parse-ignore">
+                    <a href="https://www.facebook.com/profile.php?id=61584429365273"
+                       target="_blank" rel="noopener">
+                        AsIVision – קהילת פייסבוק
+                    </a>
+                </blockquote>
+            </div>
+
+            <p style="margin-top: 1rem; font-size: 0.9rem;">
+                לחיצה על פוסט או על שם הדף תפתח את עמוד הפייסבוק המלא בחלון חדש.
+            </p>
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        © כל הזכויות שמורות ל-AsIVision
     </footer>
-  </div>
+
+    <script>
+        function scaleArtboard() {
+            const art = document.querySelector(".artboard");
+            if (!art) return;
+
+            const baseWidth = 1400;
+            const baseHeight = 800;
+
+            const scaleX = window.innerWidth / baseWidth;
+            const scaleY = window.innerHeight / baseHeight;
+
+            const scale = Math.min(scaleX, scaleY);
+            art.style.transform = `scale(${scale * 1.1})`;
+            art.style.transformOrigin = "top center";
+        }
+
+        scaleArtboard();
+        window.addEventListener("resize", scaleArtboard);
+    </script>
+
 </body>
 </html>

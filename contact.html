@@ -1,62 +1,134 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>AsIVision – צור קשר</title>
-  <link rel="stylesheet" href="css/style.css" />
+    <meta charset="UTF-8" />
+    <title>צור קשר – AsIVision</title>
+    <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <div class="container">
-    <header class="site">
-      <div class="brand-logo">
-        <img class="logo-small" src="images/logo-asivision.png" alt="AsIVision Logo" />
-      </div>
-      <nav class="top-nav">
-        <a href="index.html">דף הבית</a>
-        <a href="about.html">אודות</a>
-        <a href="examples.html">דוגמאות</a>
-        <a href="community.html">קהילה / בלוג</a>
-        <a href="contact.html">צור קשר</a>
-      </nav>
+
+<div class="artboard">
+    <header class="site-header">
+        <img src="images/logo-asivision.png" alt="AsIVision Logo" class="site-logo">
+        <nav class="top-nav">
+            <a href="index.html"     class="key-btn">דף הבית</a>
+            <a href="about.html"     class="key-btn">אודות</a>
+            <a href="examples.html"  class="key-btn">דוגמאות</a>
+            <a href="community.html" class="key-btn">קהילה / בלוג</a>
+            <a href="contact.html"   class="key-btn">צור קשר</a>
+        </nav>
     </header>
 
-    <main>
-      <section class="section">
+    <main class="page-content">
         <h1>בוא נדבר</h1>
-        <div class="contact-grid">
-          <form onsubmit="return false;">
-            <div class="row">
-              <div>
-                <label>שם</label>
-                <input type="text" required />
-              </div>
-              <div>
-                <label>אימייל</label>
-                <input type="email" required />
-              </div>
-            </div>
-            <label>טלפון</label>
-            <input type="tel" />
-            <label>הודעה</label>
-            <textarea></textarea>
-            <button class="btn" type="submit">תאם שיחת היכרות חינם</button>
-          </form>
 
-          <aside class="card">
-            <h3>פרטי התקשרות</h3>
-            <p>✉️ <a href="mailto:hello@asivision.ai">hello@asivision.ai</a></p>
-            <p>📞 <a href="tel:+972500000000">+972-50-000-0000</a></p>
-            <p>💬 <a href="https://wa.me/972500000000" target="_blank" rel="noopener">וואטסאפ – פתיחת צ׳אט</a></p>
-            <p>📍 ישראל (זמין גם אונליין ללקוחות בחו״ל)</p>
-          </aside>
+        <!-- פרטי קשר ישירים מעל הטופס -->
+        <div style="margin-bottom: 22px; font-size: 1.05rem; line-height: 1.7;">
+            אפשר ליצור קשר ישיר גם עכשיו:
+            <br>
+            ☎️ טלפון: <strong>054-4545371</strong>
+            <br>
+            📧 אימייל: <strong>asivision.ai@gmail.com</strong>
         </div>
-      </section>
-    </main>
 
-    <footer class="footer">
-      © 2025 AsIVision — Asaf Porat. כל הזכויות שמורות.
-    </footer>
-  </div>
+        <p>
+            לא משנה אם אתה עסק קטן, יוצר עצמאי או מישהו עם רעיון לסרטון או אוטומציה –
+            אפשר להתחיל משיחה קצרה ולראות מה אפשר לבנות יחד.
+        </p>
+
+        <!-- שימי לב: הוספתי id="contact-form" -->
+        <form id="contact-form" class="contact-form">
+            <div>
+                <label for="name">שם מלא</label>
+                <input type="text" id="name" name="name" placeholder="איך לקרוא לך?" required>
+            </div>
+            <div>
+                <label for="email">אימייל</label>
+                <input type="email" id="email" name="email" placeholder="info@email.com" required>
+            </div>
+            <div>
+                <label for="phone">טלפון</label>
+                <input type="tel" id="phone" name="phone" placeholder="05x-xxxxxxx">
+            </div>
+            <div>
+                <label for="message">ספר/י לי קצת על מה שיש לך בראש</label>
+                <textarea id="message" name="message" placeholder="וידאו? אוטומציה? שילוב בין שניהם?" required></textarea>
+            </div>
+            <div class="contact-submit">
+                <button type="submit" class="cta-main">שלח / שלחי הודעה</button>
+            </div>
+        </form>
+
+        <!-- הודעת סטטוס אחרי שליחה -->
+        <p id="form-status" style="margin-top: 14px; font-size: 0.9rem;"></p>
+    </main>
+</div>
+
+<footer class="site-footer">
+    © כל הזכויות שמורות ל-AsIVision
+</footer>
+
+<script>
+    // === שמירה על יחס העמוד (מה שכבר היה) ===
+    function scaleArtboard() {
+        const art = document.querySelector(".artboard");
+        if (!art) return;
+
+        const baseWidth = 1400;
+        const baseHeight = 800;
+
+        const scaleX = window.innerWidth / baseWidth;
+        const scaleY = window.innerHeight / baseHeight;
+
+        const scale = Math.min(scaleX, scaleY);
+        art.style.transform = `scale(${scale * 1.1})`;
+        art.style.transformOrigin = "top center";
+    }
+
+    scaleArtboard();
+    window.addEventListener("resize", scaleArtboard);
+
+    // === חיבור הטופס ל-Google Apps Script ===
+
+    // ⬅⬅⬅ כאן אתה מדביק את ה-URL של ה-Web App מה-Apps Script
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx9P6ITHlAC2mjf5E5OIKqfT7GKwXMjP7Tuwc2rGK1U2SrNXMDdzQecjuKUcqcLgtpw2Q/exec";
+
+    const form = document.getElementById("contact-form");
+    const statusEl = document.getElementById("form-status");
+
+    form.addEventListener("submit", async function (e) {
+        e.preventDefault(); // שלא יטען את הדף מחדש
+
+        const data = {
+            name:    document.getElementById("name").value,
+            email:   document.getElementById("email").value,
+            phone:   document.getElementById("phone").value,
+            message: document.getElementById("message").value
+        };
+
+        statusEl.textContent = "שולח את ההודעה…";
+        statusEl.style.color = "#f5f7fb";
+
+        try {
+            const res = await fetch(SCRIPT_URL, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            });
+
+            // אם הכל תקין – מציגים הודעת תודה ואיפוס טופס
+            statusEl.textContent = "ההודעה נשלחה! אחזור אליך בהקדם 🙌";
+            statusEl.style.color = "#a8ffb0";
+            form.reset();
+        } catch (err) {
+            console.error(err);
+            statusEl.textContent = "משהו השתבש בשליחה. נסה/י שוב בעוד רגע.";
+            statusEl.style.color = "#ffb3b3";
+        }
+    });
+</script>
+
 </body>
 </html>

@@ -1,340 +1,661 @@
-:root{
-  --bg1:#FFF3E9; /* peach */
-  --bg2:#F0F7FF; /* soft blue */
-  --bg3:#F8ECFF; /* lilac */
-  --text:#2C2C2C;
-  --muted:#707070;
-  --card:#F5FAFC;
-  --line:#D0E4EB;
-  --cta:#00A3E0;
-  --cta-dark:#008CC9;
-  --accent:#FF8C32;
-  --whiteish:#F9FAFB;
-  --shadow:0 10px 24px rgba(0,0,0,.08);
+/* ===== בסיס כללי ===== */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
 }
 
-*{box-sizing:border-box}
-html,body{height:100%}
-body{
-  margin:0;
-  font-family:"Heebo", system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans", Arial, sans-serif;
-  color:var(--text);
-  background: linear-gradient(140deg, var(--bg1) 0%, var(--bg2) 60%, var(--bg3) 100%);
-  line-height:1.6;
-  direction:rtl;
-}
-a{color:inherit}
-
-.container{
-  max-width:1200px;
-  margin:0 auto;
-  padding:clamp(16px,3vw,40px);
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    direction: rtl;
+    font-family: "Assistant", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
-/* ===== דף הבית ===== */
+/* הקנבס של כל הדף – אנחנו עושים לו scale לפי גודל המסך */
 
-.landing{
-  text-align:center;
+.artboard {
+    width: 1400px;            /* חייב להתאים ל-baseWidth שב-JS */
+    margin: 0 auto;
+    transform-origin: top center;
 }
 
-.landing img.logo{
-  max-width:420px;
-  width:100%;
-  height:auto;
-  display:block;
-  margin:0 auto;
+/* רקע מונפש – פלטת הכחולים */
+
+body {
+    color: #f5f7fb;
+    background: linear-gradient(
+        135deg,
+        #0466c8,
+        #0353a4,
+        #023e7d,
+        #002855,
+        #001845,
+        #001233,
+        #33415c,
+        #5c677d,
+        #7d8597,
+        #979dac
+    );
+    background-size: 400% 400%;
+    animation: bgShift 30s ease-in-out infinite;
 }
 
-/* אזור המסכים */
-.monitor-area{
-  margin-top:40px;
-  position:relative;
+/* גל עדין בצבע */
+
+@keyframes bgShift {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
-.monitors-row{
-  display:flex;
-  justify-content:center;
-  align-items:flex-start;
-  gap:40px;
-  position:relative;
+main {
+    padding-bottom: 10px; /* פחות רווח מתחת למקלדת */
 }
 
-/* מסכי "מחשב" */
-.monitor{
-  width:260px;
-  height:150px;
-  background:var(--whiteish);
-  border:2px solid #000;
-  border-radius:4px;
-  position:relative;
+/* ===== לוגו ===== */
+
+.site-header {
+    text-align: center;
+    padding: 10px 0 4px;
 }
 
-.monitor.center{
-  width:360px;
-  height:220px;
-  transform:translateY(40px);
+.site-logo {
+    max-width: 420px;
+    width: 80%;
+    height: auto;
+    display: inline-block;
 }
 
-/* קווי חיבור בין המסכים */
-.connector{
-  position:absolute;
-  border:2px solid #000;
-  border-top:none;
-  background:transparent;
+/* ===== ניווט עליון לעמודים הפנימיים (בעמודים אחרים) ===== */
+
+.top-nav {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 10px 0 22px;
 }
 
-.connector-left{
-  width:140px;
-  height:60px;
-  left:calc(50% - 340px);
-  top:140px;
-  border-right:none;
+/* ===== אזור המסכים (דף הבית) ===== */
+
+.hero-section {
+    display: flex;
+    justify-content: center;
+    margin-top: 0;
+    margin-bottom: 26px;
 }
 
-.connector-right{
-  width:140px;
-  height:60px;
-  right:calc(50% - 340px);
-  top:140px;
-  border-left:none;
+.monitors-wrap {
+    position: relative;
+    width: min(1150px, 96vw);
+    margin-inline: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 0 24px;
 }
 
-/* מקלדת ניווט */
-.keyboard-wrap{
-  max-width:800px;
-  margin:80px auto 0;
-  border:2px solid #000;
-  border-radius:4px;
-  padding:16px 20px;
-  background:rgba(255,255,255,.75);
+/* בסיס למסך */
+
+.monitor {
+    position: relative;
+    text-align: center;
+    cursor: pointer;
 }
 
-.keyboard-rows{
-  display:flex;
-  flex-direction:column;
-  gap:8px;
+/* התמונה עצמה – רק עליה נעשה היילייט */
+
+.monitor img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    transition: filter 0.25s ease;
 }
 
-.keyboard-row{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  justify-content:center;
+/* אור בתוך חלק המסך בלבד */
+
+.monitor::before {
+    content: "";
+    position: absolute;
+    top: 13%;
+    left: 7%;
+    right: 7%;
+    bottom: 38%;
+    border-radius: 14px;
+    background: radial-gradient(
+        circle at 50% 35%,
+        rgba(255, 255, 255, 0.22),
+        rgba(0, 200, 255, 0.20),
+        transparent 60%
+    );
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
 }
 
-.key{
-  min-width:90px;
-  text-align:center;
-  padding:6px 10px;
-  border-radius:4px;
-  border:2px solid #000;
-  font-size:14px;
-  text-decoration:none;
-  background:#fff;
-  transition:.15s background,.15s transform,.15s box-shadow;
-  cursor:pointer;
+/* כיסוי שחור למסכים הצדדיים – מסתיר את הלוגו של המסך */
+
+.monitor-left::after,
+.monitor-right::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 44%;
+    width: 18%;
+    height: 1%;
+    border-radius: 6px;
+    background: #000;
+    pointer-events: none;
 }
 
-.key:hover{
-  background:#000;
-  color:#fff;
-  transform:translateY(-1px);
-  box-shadow:var(--shadow);
+/* כיסוי שחור למסך המרכזי */
+
+.monitor-center::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 36%;
+    width: 20%;
+    height: 2%;
+    border-radius: 6px;
+    background: #000;
+    pointer-events: none;
 }
 
-.key-cta{
-  background:var(--cta);
-  color:#fff;
-  border-color:var(--cta-dark);
-  font-weight:700;
+/* כשהעכבר מעל המסך – קצת אור והבהרה */
+
+.monitor:hover img {
+    filter: brightness(1.12) contrast(1.03);
 }
 
-.key-cta:hover{
-  background:var(--cta-dark);
+.monitor:hover::before {
+    opacity: 1;
 }
 
-/* ===== כותרת עליונה – דפים פנימיים ===== */
+/* מסך מרכזי – יותר גדול ויותר נמוך (הערכים שלך) */
 
-header.site{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:16px;
-  flex-wrap:wrap;
-  padding:8px 0 16px 0;
+.monitor-center {
+    transform: translateY(80px) scale(1.60);
+    z-index: 3;
 }
 
-header.site .brand-logo{
-  display:flex;
-  align-items:center;
-  gap:8px;
+/* מסכים צדדיים – גדולים יותר ומתרחקים מהמרכז */
+
+.monitor-left,
+.monitor-right {
+    transform: translateY(-5px) scale(1.12);
 }
 
-header.site img.logo-small{
-  max-height:52px;
-  height:auto;
+.monitor-left {
+    margin-left: 130px;
 }
 
-nav.top-nav{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
+.monitor-right {
+    margin-right: 130px;
 }
 
-nav.top-nav a{
-  text-decoration:none;
-  padding:8px 12px;
-  border-radius:999px;
-  background:rgba(255,255,255,.7);
-  border:1px solid var(--line);
-  font-weight:600;
-  transition:.2s background,.2s color,.2s transform,.2s box-shadow;
+/* כפתור שם מתחת למסכים הצדדיים */
+
+.monitor-label {
+    margin-top: 10px;
+    padding: 6px 20px;
+    border-radius: 999px;
+    border: none;
+    background: rgba(0, 0, 0, 0.75);
+    color: #f5f7fb;
+    font-size: 0.9rem;
+    cursor: pointer;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
 }
 
-nav.top-nav a:hover{
-  background:var(--cta);
-  color:#fff;
-  transform:translateY(-1px);
-  box-shadow:var(--shadow);
+/* ===== קווי החיבור ===== */
+
+.pipe {
+    position: absolute;
+    background: linear-gradient(
+        90deg,
+        rgba(0, 255, 255, 0.1),
+        rgba(0, 255, 255, 0.9),
+        rgba(0, 255, 255, 0.1)
+    );
+    box-shadow: 0 0 16px rgba(0, 255, 255, 0.8);
 }
 
-/* ===== תוכן דפים פנימיים ===== */
+/* אופקי שמאל */
 
-h1,h2,h3{
-  margin:0 0 12px 0;
-}
-p{margin:0 0 12px 0;}
-
-.section{
-  margin-top:32px;
-}
-
-/* כרטיסים */
-.cards{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:16px;
+.pipe-left-horizontal {
+    height: 6px;
+    width: 32%;
+    top: 80%;
+    right: 62.5%;
+    border-radius: 3px;
 }
 
-.card{
-  background:var(--card);
-  border:1px solid var(--line);
-  border-radius:16px;
-  padding:16px;
-  box-shadow:var(--shadow);
+/* אנכי שמאל */
+
+.pipe-left-vertical {
+    width: 6px;
+    height: 80px;
+    top: 55.5%;
+    right: 94%;
+    border-radius: 3px;
 }
 
-.card h4{
-  margin:0 0 8px 0;
-  color:var(--cta);
+/* אופקי ימין */
+
+.pipe-right-horizontal {
+    height: 6px;
+    width: 32%;
+    top: 80%;
+    left: 62.5%;
+    border-radius: 3px;
 }
 
-/* אייקונים */
-.icon-row{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:14px;
-  margin-top:10px;
+/* אנכי ימין */
+
+.pipe-right-vertical {
+    width: 6px;
+    height: 80px;
+    top: 55.5%;
+    left: 94%;
+    border-radius: 3px;
 }
 
-.icon{
-  background:var(--whiteish);
-  border:1px solid var(--line);
-  border-radius:14px;
-  padding:14px;
-  text-align:center;
-  box-shadow:var(--shadow);
+/* חץ קטן בקצה העליון של הצינורות */
+
+.pipe-left-vertical::before,
+.pipe-right-vertical::before {
+    content: "";
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 8px solid rgba(0, 255, 255, 0.9);
 }
 
-/* ציטוטים */
-.quote{
-  background:var(--whiteish);
-  border:1px solid var(--line);
-  border-radius:16px;
-  padding:18px;
-  box-shadow:var(--shadow);
-  margin-bottom:12px;
+/* אנימציית זרימה בצינורות */
+
+.pipe {
+    background-size: 200% 100%;
+    animation: pipeFlowX 2.6s linear infinite;
 }
 
-/* טופס צור קשר */
-.contact-grid{
-  display:grid;
-  grid-template-columns:1.2fr .8fr;
-  gap:18px;
+@keyframes pipeFlowX {
+    0%   { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
 }
 
-form .row{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
+/* אנימציה אנכית */
+
+.pipe-left-vertical,
+.pipe-right-vertical {
+    background: linear-gradient(
+        180deg,
+        rgba(0, 255, 255, 0.1),
+        rgba(0, 255, 255, 0.9),
+        rgba(0, 255, 255, 0.1)
+    );
+    background-size: 100% 200%;
+    animation: pipeFlowY 2.6s linear infinite;
 }
 
-label{
-  display:block;
-  font-weight:700;
-  margin:8px 0 4px;
+@keyframes pipeFlowY {
+    0%   { background-position: 50% 0%; }
+    100% { background-position: 50% 200%; }
 }
 
-input, textarea{
-  width:100%;
-  padding:10px 12px;
-  border-radius:10px;
-  border:1px solid var(--line);
-  background:#fff;
+/* ===== המקלדת (דף הבית) ===== */
+
+.keyboard-section {
+    display: flex;
+    justify-content: center;
+    margin-top: 80px;
 }
 
-textarea{
-  min-height:130px;
-  resize:vertical;
+.keyboard-shell {
+    width: min(520px, 86vw);
+    padding: 16px 18px 10px;
+    border-radius: 22px;
+    background: linear-gradient(180deg, #f7f9fc, #e3e7ee);
+    box-shadow:
+        0 16px 34px rgba(0, 0, 0, 0.35),
+        0 0 0 1px rgba(255, 255, 255, 0.6);
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.btn{
-  display:inline-block;
-  margin-top:10px;
-  background:var(--cta);
-  color:#fff;
-  padding:10px 18px;
-  border:none;
-  border-radius:999px;
-  font-weight:800;
-  text-decoration:none;
-  cursor:pointer;
+/* שורות מקשים */
+
+.keyboard-row {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin-bottom: 6px;
+    width: 100%;
 }
 
-.btn:hover{
-  background:var(--cta-dark);
+/* מקשים מזויפים */
+
+.fake-row .fake-key {
+    display: inline-block;
+    height: 14px;
+    width: 32px;
+    border-radius: 5px;
+    background: radial-gradient(circle at 30% 20%, #ffffff, #dde1eb);
+    box-shadow:
+        0 1px 0 #cfd3de,
+        0 2px 3px rgba(0, 0, 0, 0.12);
 }
 
-/* פוטר */
-.footer{
-  margin-top:40px;
-  padding:16px 0;
-  color:var(--muted);
-  border-top:1px solid var(--line);
-  text-align:center;
+.fake-key.wide {
+    width: 52px;
 }
 
-/* רספונסיביות */
-@media (max-width:900px){
-  .monitors-row{
-    flex-direction:column;
-    align-items:center;
-  }
-  .monitor.center{
-    transform:none;
-    margin-top:12px;
-  }
-  .connector-left,
-  .connector-right{
-    display:none;
-  }
-  .cards{
-    grid-template-columns:1fr;
-  }
-  .icon-row{
-    grid-template-columns:1fr;
-  }
-  .contact-grid{
-    grid-template-columns:1fr;
-  }
+.fake-key.small {
+    width: 24px;
+}
+
+/* הלשוניות – בשורה העליונה של המקלדת */
+
+.keyboard-nav {
+    order: -1;
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 5;
+}
+
+/* לשוניות בצבע כתום/לבן – משותף למקלדת ולניווט העליון */
+
+.keyboard-nav .key-btn,
+.top-nav .key-btn {
+    min-width: 82px;
+    padding: 5px 10px;
+    border-radius: 9px;
+    border: 1px solid #ff9800;
+    background: #ffffff;
+    color: #ff9800;
+    box-shadow:
+        0 1px 0 #d0d3db,
+        0 3px 5px rgba(0, 0, 0, 0.09);
+    text-decoration: none;
+    font-size: 0.85rem;
+    text-align: center;
+    white-space: nowrap;
+    transition: transform 0.15s ease,
+                box-shadow 0.15s ease,
+                background 0.15s ease,
+                color 0.15s ease;
+    cursor: pointer;
+}
+
+.keyboard-nav .key-btn:hover,
+.top-nav .key-btn:hover {
+    background: linear-gradient(90deg, #ff9800, #ffb74d);
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow:
+        0 3px 9px rgba(0, 0, 0, 0.2);
+}
+
+/* מקש רווח – CTA */
+
+.keyboard-space {
+    justify-content: center;
+    margin-top: 2px;
+}
+
+.cta-main {
+    display: inline-block;
+    padding: 8px 32px;
+    border-radius: 999px;
+    border: none;
+    background: linear-gradient(90deg, #ff9800, #ffb74d);
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    box-shadow:
+        0 4px 10px rgba(0, 0, 0, 0.35),
+        0 0 0 1px rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    transition: transform 0.15s ease,
+                box-shadow 0.15s ease,
+                filter 0.15s ease;
+}
+
+.cta-main:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.05);
+    box-shadow:
+        0 6px 16px rgba(0, 0, 0, 0.45);
+}
+
+/* ===== תוכן עמודים פנימיים ===== */
+
+.page-content {
+    max-width: 900px;
+    margin: 30px auto 80px;
+    padding: 0 24px;
+    line-height: 1.8;
+    font-size: 1rem;
+}
+
+.page-content h1 {
+    font-size: 1.8rem;
+    margin-bottom: 16px;
+}
+
+.page-content h2 {
+    font-size: 1.2rem;
+    margin-top: 24px;
+    margin-bottom: 8px;
+}
+
+.page-content p {
+    margin-bottom: 12px;
+}
+
+.page-content ul {
+    margin-bottom: 12px;
+    padding-right: 20px;
+}
+
+/* טופס יצירת קשר */
+
+.contact-form {
+    max-width: 600px;
+    margin: 24px 0;
+}
+
+.contact-form label {
+    display: block;
+    margin-bottom: 4px;
+    font-weight: 600;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: 1px solid #ccd1dd;
+    margin-bottom: 12px;
+    font-family: inherit;
+    font-size: 0.95rem;
+}
+
+.contact-form textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.contact-form button {
+    padding: 8px 26px;
+    border-radius: 999px;
+    border: none;
+    background: linear-gradient(90deg, #ff9800, #ffb74d);
+    color: #ffffff;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.35);
+}
+
+/* ===== פוטר – זכויות יוצרים ===== */
+
+.site-footer {
+    position: fixed;
+    bottom: 8px;
+    right: 16px;
+    font-size: 0.75rem;
+    color: #dbe5ff;
+    opacity: 0.9;
+    pointer-events: none;
+    z-index: 1000;
+}
+
+/* ===== רספונסיביות בסיסית ===== */
+
+@media (max-width: 900px) {
+    .monitors-wrap {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .monitor-center {
+        order: 0;
+        transform: translateY(20px) scale(1.15);
+    }
+
+    .monitor-left,
+    .monitor-right {
+        order: 1;
+        margin: 0;
+        margin-top: 24px;
+        transform: translateY(0) scale(1.0);
+    }
+
+    .pipe {
+        display: none;
+    }
+
+    .keyboard-shell {
+        width: 92vw;
+    }
+
+    .page-content {
+        margin-top: 16px;
+    }
+}
+
+/* ===== כפתורי PLAY וטקסט "בקרוב" על המסכים ===== */
+
+.monitor-screen-overlay {
+    position: absolute;
+    top: 13%;
+    left: 7%;
+    right: 7%;
+    bottom: 38%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;      /* כפתור PLAY מקבל את הקליק */
+    z-index: 2;
+}
+
+.monitor-play-btn {
+    pointer-events: auto;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(0, 0, 0, 0.72);
+    color: #ffffff;
+    font-size: 1.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.55);
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.monitor-play-btn:hover {
+    transform: translateY(-1px) scale(1.04);
+    background: rgba(0, 0, 0, 0.9);
+    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.65);
+}
+
+.coming-soon-badge {
+    margin-top: 10px;
+    padding: 4px 16px;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.78);
+    color: #ffeb3b;
+    font-size: 0.9rem;
+    pointer-events: none;
+}
+
+/* ===== תיקון מיקום PLAY למסך השמאלי בלבד ===== */
+.monitor-right .monitor-screen-overlay {
+    top: 5%;     /* במקום 13% – מרים מעט למעלה */
+}
+
+
+/* ===== מודאל וידאו מרכזי ===== */
+
+.video-modal {
+    position: fixed;
+    inset: 0;
+    display: none;              /* יופיע רק כשהמחלקה open קיימת */
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.75);
+    z-index: 2000;
+}
+
+.video-modal.open {
+    display: flex;
+}
+
+.video-modal-dialog {
+    position: relative;
+    width: min(900px, 80vw);
+    background: #000;
+    border-radius: 18px;
+    padding: 12px;
+    box-shadow: 0 18px 38px rgba(0, 0, 0, 0.8);
+}
+
+.video-modal video {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+}
+
+.video-modal-close {
+    position: absolute;
+    top: 8px;
+    left: 10px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(0, 0, 0, 0.75);
+    color: #ffffff;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

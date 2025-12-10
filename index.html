@@ -1,46 +1,246 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>AsIVision – דף הבית</title>
-  <link rel="stylesheet" href="css/style.css" />
+    <meta charset="UTF-8" />
+    <title>AsIVision – אוטומציה חכמה ווידאו עם AI</title>
+    <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <div class="container landing">
 
-    <!-- לוגו -->
-    <img class="logo" src="images/logo-asivision.png" alt="AsIVision Logo" />
+<div class="artboard">
+    <header class="site-header">
+        <img src="images/logo-asivision.png" alt="AsIVision Logo" class="site-logo">
+    </header>
 
-    <!-- אזור המסכים -->
-    <div class="monitor-area">
-      <div class="monitors-row">
-        <div class="monitor left"></div>
-        <div class="monitor center"></div>
-        <div class="monitor right"></div>
-      </div>
+    <main>
 
-      <!-- קווי חיבור (כמו n8n) -->
-      <div class="connector connector-left"></div>
-      <div class="connector connector-right"></div>
+        <!-- אזור המסכים -->
+        <section class="hero-section">
+
+            <div class="monitors-wrap">
+                <!-- מסך שמאל – וידאו / בקרוב -->
+                <div class="monitor monitor-left" data-soon="true">
+                    <img src="images/screen-video.png" alt="יצירת וידאו – בקרוב">
+
+                    <!-- שכבת כפתור PLAY וטקסט "בקרוב" -->
+                    <div class="monitor-screen-overlay">
+                        <button class="monitor-play-btn" type="button" aria-label="סרטון בקרוב">
+                            ▶
+                        </button>
+                        <span class="coming-soon-badge">בקרוב</span>
+                    </div>
+
+                    <!-- כפתור שם מתחת למסך -->
+                    <button class="monitor-label" type="button">
+                        יצירת וידאו
+                    </button>
+                </div>
+
+                <!-- מסך מרכזי – וידאו פתיחה / סטודיו -->
+                <div class="monitor monitor-center" data-video="videos/studio-intro.mp4">
+                    <img src="images/screen-studio.png" alt="סטודיו בעבודה">
+
+                    <div class="monitor-screen-overlay">
+                        <button class="monitor-play-btn" type="button" aria-label="נגן וידאו פתיחה">
+                            ▶
+                        </button>
+                    </div>
+                </div>
+
+                <!-- מסך ימין – אוטומציה חכמה -->
+                <div class="monitor monitor-right" data-video="videos/automation-intro.mp4">
+                    <img src="images/screen-automation.png" alt="אוטומציה חכמה">
+
+                    <div class="monitor-screen-overlay">
+                        <button class="monitor-play-btn" type="button" aria-label="נגן וידאו אוטומציה">
+                            ▶
+                        </button>
+                    </div>
+
+                    <!-- שם השירות מתחת למסך -->
+                    <button class="monitor-label" type="button">
+                        אוטומציה חכמה
+                    </button>
+                </div>
+
+                <!-- קווי חיבור -->
+                <div class="pipe pipe-left-horizontal"></div>
+                <div class="pipe pipe-left-vertical"></div>
+                <div class="pipe pipe-right-horizontal"></div>
+                <div class="pipe pipe-right-vertical"></div>
+            </div>
+
+        </section>
+
+        <!-- אזור המקלדת / ניווט -->
+        <section class="keyboard-section">
+            <div class="keyboard-shell">
+
+                <!-- כמה מקשים מזויפים למעלה -->
+                <div class="keyboard-row fake-row">
+                    <span class="fake-key"></span>
+                    <span class="fake-key"></span>
+                    <span class="fake-key"></span>
+                    <span class="fake-key"></span>
+                    <span class="fake-key"></span>
+                    <span class="fake-key"></span>
+                    <span class="fake-key"></span>
+                    <span class="fake-key"></span>
+                </div>
+
+                <div class="keyboard-row fake-row">
+                    <span class="fake-key wide"></span>
+                    <span class="fake-key"></span>
+                    <span class="fake-key"></span>
+                    <span class="fake-key"></span>
+                    <span class="fake-key wide"></span>
+                    <span class="fake-key"></span>
+                </div>
+
+                <!-- שורת הלשוניות (ניווט) -->
+                <nav class="keyboard-row keyboard-nav">
+                    <a href="index.html"     class="key-btn">דף הבית</a>
+                    <a href="about.html"     class="key-btn">אודות</a>
+                    <a href="examples.html"  class="key-btn">דוגמאות</a>
+                    <a href="community.html" class="key-btn">קהילה / בלוג</a>
+                    <a href="contact.html"   class="key-btn">צור קשר</a>
+                </nav>
+
+                <!-- עוד שורת כפתורים "פייק" -->
+                <div class="keyboard-row fake-row">
+                    <span class="fake-key"></span>
+                    <span class="fake-key"></span>
+                    <span class="fake-key"></span>
+                    <span class="fake-key wide"></span>
+                    <span class="fake-key"></span>
+                    <span class="fake-key"></span>
+                </div>
+
+                <!-- מקש רווח – CTA -->
+                <div class="keyboard-row keyboard-space">
+                    <a href="contact.html" class="cta-main">
+                        בוא נבנה את הפרויקט הבא שלך
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+</div>
+
+<footer class="site-footer">
+    © כל הזכויות שמורות ל-AsIVision
+</footer>
+
+<!-- מודאל הווידאו המרכזי -->
+<div class="video-modal" id="video-modal">
+    <div class="video-modal-dialog">
+        <button class="video-modal-close" id="video-close" type="button" aria-label="סגור וידאו">✕</button>
+        <video id="modal-video" controls playsinline></video>
     </div>
+</div>
 
-    <!-- מקלדת ניווט -->
-    <div class="keyboard-wrap">
-      <div class="keyboard-rows">
-        <div class="keyboard-row">
-          <a class="key" href="index.html">אזור אישי</a>
-          <a class="key" href="about.html">אודות</a>
-          <a class="key" href="examples.html">דוגמאות</a>
-          <a class="key" href="community.html">קהילה / בלוג</a>
-          <a class="key" href="contact.html">צור קשר</a>
-        </div>
-        <div class="keyboard-row">
-          <a class="key key-cta" href="contact.html">בוא נבנה את הפרויקט הבא שלך</a>
-        </div>
-      </div>
-    </div>
+<script>
+    // שמירת הסקייל של הקנבס
+    function scaleArtboard() {
+        const art = document.querySelector(".artboard");
+        if (!art) return;
 
-  </div>
+        const baseWidth = 1400;
+        const baseHeight = 800;
+
+        const scaleX = window.innerWidth / baseWidth;
+        const scaleY = window.innerHeight / baseHeight;
+
+        const scale = Math.min(scaleX, scaleY);
+
+        art.style.transform = "scale(" + (scale * 1.1) + ")";
+        art.style.transformOrigin = "top center";
+    }
+
+    scaleArtboard();
+    window.addEventListener("resize", scaleArtboard);
+
+    // לוגיקת הווידאו למסכים
+    (function () {
+        const modal      = document.getElementById("video-modal");
+        const modalVideo = document.getElementById("modal-video");
+        const closeBtn   = document.getElementById("video-close");
+
+        if (!modal || !modalVideo || !closeBtn) return;
+
+        function openVideo(src) {
+            if (!src) return;
+            modal.classList.add("open");
+            modalVideo.src = src;
+            modalVideo.currentTime = 0;
+            modalVideo.play().catch(() => {});
+        }
+
+        function closeVideo() {
+    // סגירת המודאל
+    modal.classList.remove("open");
+
+    // עצירת הסרטון
+    modalVideo.pause();
+    modalVideo.currentTime = 0;
+
+    // ניקוי מקיף של המקור
+    modalVideo.src = "";
+    modalVideo.load();
+
+    // תן לדפדפן מילישנייה לרנדר ואז הכל חוזר למצב נקי
+    setTimeout(() => {
+        document.activeElement.blur();
+    }, 50);
+}
+
+
+        closeBtn.addEventListener("click", closeVideo);
+        modal.addEventListener("click", function (e) {
+            // סגירה בלחיצה מחוץ לוידאו
+            if (e.target === modal) {
+                closeVideo();
+            }
+        });
+        modalVideo.addEventListener("ended", closeVideo);
+
+        // מסכים עם וידאו אמיתי
+        document.querySelectorAll(".monitor[data-video]").forEach(function (monitor) {
+            const src = monitor.getAttribute("data-video");
+            const playBtn = monitor.querySelector(".monitor-play-btn");
+
+            function handleOpen() {
+                openVideo(src);
+            }
+
+            monitor.addEventListener("click", handleOpen);
+            if (playBtn) {
+                playBtn.addEventListener("click", function (ev) {
+                    ev.stopPropagation();
+                    handleOpen();
+                });
+            }
+        });
+
+        // מסכים במצב "בקרוב"
+        document.querySelectorAll(".monitor[data-soon='true']").forEach(function (monitor) {
+            const playBtn = monitor.querySelector(".monitor-play-btn");
+
+            function notifySoon() {
+                alert("הסרטון יהיה זמין בקרוב 🙂");
+            }
+
+            monitor.addEventListener("click", notifySoon);
+            if (playBtn) {
+                playBtn.addEventListener("click", function (ev) {
+                    ev.stopPropagation();
+                    notifySoon();
+                });
+            }
+        });
+    })();
+</script>
+
 </body>
 </html>
