@@ -129,6 +129,39 @@
         }
     });
 </script>
+<script>
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxHEb9DonSNcXOrYhdaG4Eiyx6h5z-o0nVTTPxGepVCmZFSACb9YKz5EJem5pOe1Xo/exec"; // להחליף בקישור מה-Apps Script
+
+  const form   = document.getElementById("contact-form");
+  const status = document.getElementById("contact-status");
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    status.textContent = "שולח את ההודעה...";
+    
+    const formData = new FormData(form);
+
+    fetch(SCRIPT_URL, {
+      method: "POST",
+      body: formData
+    })
+    .then(r => r.json())
+    .then(data => {
+      if (data.status === "ok") {
+        status.textContent = "ההודעה נשלחה בהצלחה! 😊";
+        form.reset();
+      } else {
+        status.textContent = "אירעה תקלה בשליחה. נסה שוב מאוחר יותר.";
+      }
+    })
+    .catch(() => {
+      status.textContent = "אירעה תקלה בשליחה. נסה שוב מאוחר יותר.";
+    });
+  });
+</script>
+
+
 
 </body>
 </html>
