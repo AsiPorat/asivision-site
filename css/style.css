@@ -659,3 +659,10 @@ main {
     align-items: center;
     justify-content: center;
 }
+
+/* הופך את כל הלינקים הסגולים בחזרה לכחול */
+.page-content a:link,
+.page-content a:visited {
+    color: #4da3ff;   /* כחול בהיר ונעים */
+    text-decoration: underline;
+}
