@@ -131,36 +131,54 @@
     });
 </script>
 <script>
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxHEb9DonSNcXOrYhdaG4Eiyx6h5z-o0nVTTPxGepVCmZFSACb9YKz5EJem5pOe1Xo/exec"; // להחליף בקישור מה-Apps Script
+  // === כתובת ה–Web App של Apps Script ===
+  const SCRIPT_URL =
+    "https://script.google.com/macros/s/AKfycbyxHEb9DonSNcXOrYhdaG4Eiyx6h5z-o0nVTTPxGepVCmZFSACb9YKz5EJem5p0e1Xo/exec";
 
-  const form   = document.getElementById("contact-form");
-  const status = document.getElementById("contact-status");
+  const form    = document.getElementById("contact-form");
+  const statusEl = document.getElementById("form-status");
 
-  form.addEventListener("submit", function (e) {
+  form.addEventListener("submit", async function (e) {
     e.preventDefault();
 
-    status.textContent = "שולח את ההודעה...";
-    
-    const formData = new FormData(form);
+    statusEl.textContent = "שולח...";
 
-    fetch(SCRIPT_URL, {
-      method: "POST",
-      body: formData
-    })
-    .then(r => r.json())
-    .then(data => {
-      if (data.status === "ok") {
-        status.textContent = "ההודעה נשלחה בהצלחה! 😊";
-        form.reset();
-      } else {
-        status.textContent = "אירעה תקלה בשליחה. נסה שוב מאוחר יותר.";
+    const data = new FormData(form);
+
+    console.log("▶ שולח ל-Apps Script:", SCRIPT_URL);
+    console.log("▶ נתונים שנשלחים:", Object.fromEntries(data.entries()));
+
+    try {
+      const res = await fetch(SCRIPT_URL, {
+        method: "POST",
+        body: data,
+      });
+
+      console.log("◀ תשובת השרת:", res.status, res.statusText);
+
+      let json;
+      try {
+        json = await res.json();
+        console.log("◀ JSON:", json);
+      } catch (err) {
+        console.warn("לא הצלחתי לפענח JSON:", err);
       }
-    })
-    .catch(() => {
-      status.textContent = "אירעה תקלה בשליחה. נסה שוב מאוחר יותר.";
-    });
+
+      if (!res.ok || !json || json.status !== "ok") {
+        statusEl.textContent = "שגיאה בשליחה. נסה שוב.";
+        console.error("שגיאה לוגית בתשובה:", json);
+        return;
+      }
+
+      statusEl.textContent = "✅ ההודעה נשלחה בהצלחה!";
+      form.reset();
+    } catch (err) {
+      console.error("❌ שגיאת רשת/JS:", err);
+      statusEl.textContent = "שגיאה בשליחה (רשת). נסה שוב.";
+    }
   });
 </script>
+
 
 
 
