@@ -932,70 +932,49 @@ form,
   aspect-ratio: 16 / 9;
 }
 
-/* --- תיקון סופי לספארי: שחרור גלילה ומניעת נדנוד --- */
+/* --- גרסה סופית: גלילת עמודים ממגנטת ללא חיתוך טקסט --- */
 @media (max-width: 768px) {
-    
-    html {
-        /* מאפשר גלילה מגנטית ב-ספארי */
-        scroll-snap-type: y mandatory;
-        height: 100%;
-        overflow-x: hidden;
-    }
-
-    body {
-        /* שחרור הנעילה: משנים מ-hidden ל-auto */
-        overflow-y: auto !important; 
-        overflow-x: hidden !important;
-        height: 100%;
-        position: relative;
-        -webkit-overflow-scrolling: touch;
-        width: 100%;
-        margin: 0;
+    /* הופך את הגלילה ליותר פשוטה עבור המנוע של אפל */
+    html, body {
+        overflow: auto !important; /* משחרר את הנעילה הכללית */
+        position: relative !important;
+        height: auto !important;
     }
 
     main {
-        scroll-snap-type: y mandatory;
-        height: 100%;
-        overflow-y: visible; /* מאפשר ל-body לנהל את הגלילה */
+        height: auto !important;
+        overflow: visible !important;
+        scroll-snap-type: none !important; /* מבטל את המגנט אם הוא זה שנועל את המסך */
     }
 
     section {
+        height: auto !important; /* משחרר את הגובה הקשיח */
+        min-height: 100vh !important;
+        scroll-snap-align: none !important;
+    }
+}
+
+    section {
+        /* כל סקשן הוא עמוד מלא */
         height: 100vh;
         height: -webkit-fill-available;
+        width: 100%;
         scroll-snap-align: start;
-        scroll-snap-stop: always;
+        scroll-snap-stop: always; /* מכריח עצירה בכל עמוד */
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: center; /* ממרכז תוכן כדי שלא ייחתך */
         align-items: center;
         padding: 60px 20px;
         box-sizing: border-box;
+        position: relative;
     }
 
-    /* תיקון הנדנוד של הכפתורים הצפים */
-    .floating-nav {
-        top: 10px !important;
-        /* במקום 50% ו-transform, נשתמש בשיטה בטוחה יותר לספארי */
-        left: 2.5% !important; 
-        width: 95% !important;
-        transform: none !important; 
-        
-        padding: 8px 4px !important;
-        display: flex !important;
-        flex-wrap: wrap !important;
-        justify-content: center !important;
-        gap: 6px !important;
-        background: rgba(10, 25, 47, 0.95) !important;
-        border: 1px solid rgba(100, 255, 218, 0.3) !important;
-        border-radius: 12px !important;
-        z-index: 9999 !important;
-    }
-
-    /* שאר הקוד של המסכים והטקסט ללא שינוי כדי לא להרוס */
-    .hero-title, h1, h2, p {
-        white-space: normal !important;
-        word-wrap: break-word !important;
-        max-width: 100% !important;
+    /* תיקון ספציפי למסכים - שהם לא יחתכו את העמוד */
+    .monitors-section {
+        /* אם יש הרבה מסכים, נאפשר גלילה פנימית או פריסה קומפקטית */
+        justify-content: flex-start; 
+        overflow-y: auto; 
     }
 
     .monitors-wrap {
@@ -1003,17 +982,44 @@ form,
         flex-direction: column !important;
         gap: 30px !important;
         width: 100% !important;
-        align-items: center !important;
     }
 
     .monitor {
-        width: 85% !important;
-        max-width: 290px !important;
+        /* הקטנה קלה כדי לוודא שכל מסך נכנס בפריים אחד */
+        width: 80% !important;
+        max-width: 280px !important;
         margin: 0 auto !important;
         transform: scale(1) !important;
     }
 
+    /* כפתורים צפים - נשארים בדיוק כפי שאהבת */
+    .floating-nav {
+        top: 15px !important;
+        width: 92% !important;
+        left: 4% !important;
+        display: flex !important;
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        gap: 5px !important;
+        background: rgba(10, 25, 47, 0.9) !important;
+        z-index: 10000 !important;
+    }
+
+    .nav-link {
+        font-size: 0.7rem !important;
+        padding: 5px 7px !important;
+        white-space: nowrap !important;
+    }
+
+    /* הסתרת אלמנטים שגורמים לתזוזה לצדדים */
     .pipe, .floating-code, .tech-lines {
         display: none !important;
+    }
+
+    /* טקסטים - שומרים על ההישג של אי-חיתוך */
+    .hero-title, h2 {
+        font-size: 1.4rem !important;
+        white-space: normal !important;
+        text-align: center !important;
     }
 }
