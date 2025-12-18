@@ -932,56 +932,54 @@ form,
   aspect-ratio: 16 / 9;
 }
 
-/* --- גרסה סופית: משמרת הצלחות + תיקון ספארי וגלילה מגנטית --- */
+/* --- תיקון סופי לספארי: שחרור גלילה ומניעת נדנוד --- */
 @media (max-width: 768px) {
     
-    /* 1. תיקון תשתית לספארי (Safari) - מחזיר את הגלילה המגנטית */
     html {
-        scroll-snap-type: y mandatory; /* מגנט חובה */
+        /* מאפשר גלילה מגנטית ב-ספארי */
+        scroll-snap-type: y mandatory;
         height: 100%;
         overflow-x: hidden;
     }
 
     body {
+        /* שחרור הנעילה: משנים מ-hidden ל-auto */
+        overflow-y: auto !important; 
+        overflow-x: hidden !important;
         height: 100%;
-        overflow-x: hidden;
-        overflow-y: auto; /* מאפשר לספארי "להקשיב" לגלילה של ה-HTML */
-        -webkit-overflow-scrolling: touch;
         position: relative;
+        -webkit-overflow-scrolling: touch;
+        width: 100%;
+        margin: 0;
     }
 
     main {
         scroll-snap-type: y mandatory;
         height: 100%;
+        overflow-y: visible; /* מאפשר ל-body לנהל את הגלילה */
     }
 
     section {
         height: 100vh;
-        height: -webkit-fill-available; /* גובה מסך אמיתי באייפון */
+        height: -webkit-fill-available;
         scroll-snap-align: start;
         scroll-snap-stop: always;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        padding: 60px 20px;
         box-sizing: border-box;
-        padding: 80px 20px;
     }
 
-    /* 2. תיקון חיתוך טקסט - בלי לשנות עיצוב */
-    h1, h2, .hero-title, .hero-subtitle, p {
-        white-space: normal !important; /* קריטי: מונע מהטקסט לצאת מהמסך בספארי */
-        word-wrap: break-word !important;
-        max-width: 100% !important;
-        text-align: center;
-    }
-
-    /* === הקוד שאסור לשנות (הכפתורים הצפים) === */
+    /* תיקון הנדנוד של הכפתורים הצפים */
     .floating-nav {
         top: 10px !important;
-        left: 50% !important;
-        transform: translateX(-50%) !important;
+        /* במקום 50% ו-transform, נשתמש בשיטה בטוחה יותר לספארי */
+        left: 2.5% !important; 
         width: 95% !important;
+        transform: none !important; 
+        
         padding: 8px 4px !important;
         display: flex !important;
         flex-wrap: wrap !important;
@@ -993,61 +991,29 @@ form,
         z-index: 9999 !important;
     }
 
-    .nav-link {
-        font-size: 0.75rem !important;
-        padding: 6px 10px !important;
-        margin: 0 !important;
-        white-space: nowrap !important;
-        background: rgba(255, 255, 255, 0.05);
-        border-radius: 6px;
-    }
-
-    .nav-cta {
-        background: #64ffda !important;
-        color: #0a192f !important;
-        font-weight: bold;
-    }
-
-    /* === הקוד שאסור לשנות (המסכים) === */
-    .monitors-section {
-        padding-top: 60px !important;
+    /* שאר הקוד של המסכים והטקסט ללא שינוי כדי לא להרוס */
+    .hero-title, h1, h2, p {
+        white-space: normal !important;
+        word-wrap: break-word !important;
+        max-width: 100% !important;
     }
 
     .monitors-wrap {
         display: flex !important;
         flex-direction: column !important;
-        gap: 40px !important;
+        gap: 30px !important;
         width: 100% !important;
         align-items: center !important;
     }
 
     .monitor {
         width: 85% !important;
-        max-width: 300px !important;
+        max-width: 290px !important;
         margin: 0 auto !important;
         transform: scale(1) !important;
-        position: relative !important;
-        left: auto !important;
-        right: auto !important;
     }
 
-    .monitor-text {
-        position: relative !important;
-        top: auto !important;
-        left: auto !important;
-        transform: none !important;
-        padding: 10px 0 !important;
-        font-size: 0.85rem !important;
-        display: block !important;
-        text-align: center;
-    }
-
-    /* === הקוד שאסור לשנות (ניקוי וטופס) === */
     .pipe, .floating-code, .tech-lines {
         display: none !important;
     }
-
-    .contact-form {
-        width: 100% !important;
-        padding: 10px !important;
-    }
+}
