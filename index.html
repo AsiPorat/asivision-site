@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AsIVision – אוטומציה חכמה ווידאו עם AI</title>
+  <link rel="stylesheet" href="css/style_onepage.css">
+
+</head>
+<body>
+
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/he_IL/sdk.js#xfbml=1&version=v18.0"></script>
+
+<nav class="floating-nav" aria-label="ניווט">
+  <a class="nav-link" href="#home">בית</a>
+  <a class="nav-link" href="#showcase">וידאו</a>
+  <a class="nav-link" href="#about">אודות</a>
+  <a class="nav-link" href="#examples">דוגמאות</a>
+  <a class="nav-link" href="#community">קהילה</a>
+  <a class="nav-link nav-cta" href="#contact">צור קשר</a>
+</nav>
+
+<div class="artboard">
+<div class="floating-code side-left">
+    <div class="code-content">
+class AsIVisionSystem(AI):
+    def __init__(self):
+        self.status = "DeepLearning_Active"
+        self.nodes = cluster.load_all()
+    
+    def analyze_stream(self, data):
+        if data.type == 'video_raw':
+            return self.vision.process(data)
+        return self.automation.execute(data)
+
+# Neural Network Initialization
+while True:
+    frame = camera.capture()
+    if frame.is_ready():
+        prediction = model.predict(frame)
+        bridge.emit_signal(prediction)
+
+def sync_cluster():
+    for node in cluster.nodes:
+        if not node.is_active():
+            node.restart()
+
+# Monitoring Loop
+while True:
+    metrics = system.fetch_telemetry()
+    database.save(metrics)
+    if metrics.load > 0.8:
+        scale_up()
+
+class DataOptimizer:
+    def __init__(self, lr=0.001):
+        self.learning_rate = lr
+        self.weights = []
+
+    def step(self, gradient):
+        self.weights -= self.lr * gradient
+
+# Additional System Logic
+def watchdog():
+    while system.alive:
+        heartbeat.send()
+        sleep(1)
+
+# End of Primary Block
+    </div>
+</div>
+
+<div class="floating-code side-right">
+    <div class="code-content">
+def init_server_cluster():
+    config = yaml.load('production_env')
+    engine.boot(config)
+
+# Traffic Monitoring
+for i in range(MAX_NODES):
+    health = api.check_health(i)
+    console.log(f"Node {i} Status: {health}")
+
+async def handle_request(req):
+    payload = await req.get_json()
+    result = await vision.process(payload)
+    return JsonResponse(result)
+
+# Automation Scripts
+if __name__ == "__main__":
+    init_server_cluster()
+    run_background_tasks()
+
+# Deep Learning Optimization
+def backprop(loss, params):
+    grads = tape.gradient(loss, params)
+    optimizer.apply(grads)
+
+# Cluster Load Balancer
+while True:
+    node = balancer.get_next()
+    if node.available:
+        node.assign(task)
+
+# System Health Check
+def run_diagnostics():
+    report = diagnostic.full_scan()
+    email.send_admin(report)
+
+# Global Variables
+MAX_RETRIES = 5
+TIMEOUT = 30
+    </div>
+</div>
+  <main>
+    <section id="home" class="hero-copy hero-only">
+      <header class="site-header">
+        <img src="images/logo-asivision.png" alt="AsIVision Logo" class="site-logo">
+      </header>
+      
+      <h1 class="hero-title">AsIVision – פתרונות AI שמחברים בין אוטומציה, וידאו ועסקים אמיתיים</h1>
+      <p class="hero-subtitle">אני בונה אוטומציות וסרטוני AI שעובדים בשבילך:</p>
+
+      <div class="hero-points">
+        <div class="point">⚙️ <strong>אוטומציה חכמה</strong> שמייעלת תהליכי עבודה וחוסכת זמן</div>
+        <div class="point">🎬 <strong>וידאו מקצועי</strong> – לאירועים פרטיים וסרטים מורכבים לתעשייה המקצועית</div>
+        <div class="point">🤖 <strong> מומחיות ב AI</strong> ליווי פרוייקטים ומתן ידע מקצועי לבעיות טכניות</div>
+      </div>
+
+      <p class="hero-human">
+        מאחורי AsIVision עומד אדם אחד עם ניסיון אמיתי, סקרנות טכנולוגית, ורצון לבנות פתרונות שעובדים – לא רק נראים טוב.
+      </p>
+
+      <div class="hero-links">
+        <a class="hero-link" href="#showcase">רוצים להבין את התהליך? ▶</a>
+        <a class="hero-link" href="#examples">קפצו לדוגמאות →</a>
+        <a class="hero-link hero-link-strong" href="#contact">דברו איתי</a>
+      </div>
+    </section>
+
+    <section id="showcase" class="monitors-section">
+<div class="hero-section">
+
+            <div class="monitors-wrap">
+                <div class="monitor monitor-left" data-soon="true">
+                    <img src="images/screen-video.png" alt="יצירת וידאו – בקרוב">
+
+                    <div class="monitor-screen-overlay">
+                        <button class="monitor-play-btn" type="button" aria-label="סרטון בקרוב">
+                            ▶
+                        </button>
+                        <span class="coming-soon-badge">בקרוב</span>
+                    </div>
+
+                    <button class="monitor-label" type="button">
+                        יצירת וידאו
+                    </button>
+                </div>
+
+                <div class="monitor monitor-center monitor-static">
+    <img src="images/screen-studio.png" alt="סטודיו בעבודה">
+
+    <div class="monitor-text-overlay">
+        <div class="monitor-text">
+            רוצים לראות מה אני מציע?<br>
+            <strong>צפו בסרטונים</strong>
+        </div>
+    </div>
+</div>
+
+
+                <div class="monitor monitor-right" data-video="8yHvRKR46hk">
+                    <img src="images/screen-automation.png" alt="אוטומציה חכמה">
+
+                    <div class="monitor-screen-overlay">
+                        <button class="monitor-play-btn" type="button" aria-label="נגן וידאו אוטומציה">
+                            ▶
+                        </button>
+                    </div>
+
+                    <button class="monitor-label" type="button">
+                        אוטומציה חכמה
+                    </button>
+                </div>
+
+                <div class="pipe pipe-left-horizontal"></div>
+                <div class="pipe pipe-left-vertical"></div>
+                <div class="pipe pipe-right-horizontal"></div>
+                <div class="pipe pipe-right-vertical"></div>
+            </div>
+
+        </div>
+    </section>
+
+<section id="about" class="content-section">
+<h2 class="section-title">מי אני</h2>
+
+        <p>
+            אני אסף פורת (Asi) — יוצר וידאו, מומחה לפוסט־פרודקשן ומפתח אוטומציות מבוססות AI.
+            ב-AsIVision אני מחבר בין שני עולמות שנראים שונים, ומוציא מהם פתרונות עוצמתיים:
+            יצירת וידאו ברמת שידור ואוטומציות חכמות שמייעלות תהליכים אישיים ועסקיים.
+        </p>
+
+        <h2>השכלה וניסיון</h2>
+        <p>
+            אני בוגר <strong>המכללה האקדמית ספיר</strong> עם תואר ראשון בקולנוע וטלוויזיה, 
+            ובוגר <strong>הקורס למתכנני AI והכשרת מנהלים של האוניברסיטה העברית</strong>.
+            יש לי למעלה מ־15 שנות ניסיון בתעשיית הטלוויזיה — עריכה, קולוריסטיקה, גרפיקה,
+            ותהליכי פוסט־פרודקשן מלאים ברמת שידור.
+        </p>
+
+        <h2>מה אני מביא לשולחן?</h2>
+        <ul>
+            <li>🎬 ניסיון עשיר ביצירת סרטים — דוקו, אנימציה, ריאליסטי, פרסומות ותוכן לאירועים.</li>
+            <li>🤖 שליטה בכלי AI מתקדמים — וידאו, קול, תסריט, עריכה ושיפור איכות.</li>
+            <li>🔗 פיתוח אוטומציות שמחברות בין מייל, טפסים, רשתות חברתיות ותהליכי עבודה.</li>
+            <li>🧠 חשיבה משותפת — תכנון ובניית הפתרון ביחד איתך, עם הסברים בגובה העיניים.</li>
+            <li>🚀 עדכניות מתמדת — מעקב שוטף אחרי כלים חדשים ותרגומם לפתרונות פרקטיים.</li>
+        </ul>
+
+        <p>
+            AsIVision נולד מתוך רצון ליצור מקום שבו טכנולוגיה וקריאייטיב חיים יחד —
+            ומתורגמים לפתרונות אמיתיים, חכמים ונגישים שמתאימים לעסק שלך.
+        </p>
+</section>
+
+<section id="examples" class="content-section">
+<h2 class="section-title">דוגמאות</h2>
+
+        <p>
+            AsIVision מציעה מגוון פתרונות וידאו ואוטומציה, לעסקים ולאנשים פרטיים.
+            השירותים שלנו בתחום יצירת הסרטים כוללים בין היתר:
+        </p>
+
+        <ul>
+            <li>סרטים אישיים לאירועים – ימי הולדת, בר ובת מצווה, חתונות, וחגיגות לסבא וסבתא.</li>
+            <li>סרטים מקצועיים – שחזורים לדוקו, סרטים קצרים ריאליסטיים או אנימציה.</li>
+            <li>תיקוני צבע ושיפור איכות לתמונה ולווידאו.</li>
+            <li>פרסומות, קליפים, וסרטונים שיווקיים לכל פלטפורמה.</li>
+            <li>ובגדול – כמעט כל מה שאפשר לייצר בתחום הווידאו.</li>
+        </ul>
+
+        <p>
+            לצפייה בדוגמאות נוספות ובסרטונים חדשים אני מזמין אותך לבקר בערוץ היוטיוב שלי:
+        </p>
+
+        <p class="centered-link">
+            <a href="https://www.youtube.com/@AsiG_AI"
+               target="_blank" rel="noopener" class="key-btn">
+                מעבר לערוץ YouTube של AsIVision
+            </a>
+        </p>
+
+        <hr class="section-divider" />
+
+        <h2>בתחום האוטומציה</h2>
+
+        <p>
+            מעבר לווידאו, אני בונה גם פתרונות אוטומציה חכמים בעזרת AI – למשל
+            סוכנת “מזכירה אישית” שמנהלת משימות, תזכורות ופניות בצורה אוטומטית.
+        </p>
+
+        <p>
+            הכנתי עבורך דוגמה אמיתית של כלי אוטומציה כזה. ניתן לפתוח ולהריץ את
+            קובץ ההדגמה (EXE) ישירות מהענן:
+        </p>
+
+        <p class="centered-link">
+            <a href="https://drive.google.com/file/d/14C8PxZdOWFT-hm0vvq1GexMbO-1npD6q/view?usp=drive_link"
+               target="_blank" rel="noopener" class="key-btn">
+                פתיחת דוגמת האוטומציה – SmartOffice Assistant
+            </a>
+        </p>
+</section>
+
+<section id="community" class="content-section">
+<h2 class="section-title">קהילה / בלוג</h2>
+            <p>
+                כאן תוכלו לראות את הפוסטים האחרונים מהעמוד שלנו בפייסבוק,
+                להישאר מעודכנים בטיפים, חידושים ופרויקטים – ולהצטרף לשיחה בלחיצת כפתור.
+            </p>
+
+            <div class="facebook-embed-wrapper">
+  <div
+    class="fb-page"
+    data-href="https://www.facebook.com/profile.php?id=61584429365273"
+    data-tabs="timeline"
+    data-width="500"      /* כאן אתה קובע את הרוחב (מקסימום 500) */
+    data-height="600"     /* הקטנתי ל-600 כדי שלא ידחוף את הטקסט למטה */
+    data-small-header="false"
+    data-adapt-container-width="true"
+    data-hide-cover="false"
+    data-show-facepile="true">
+  </div>
+</div>
+
+
+            <p style="margin-top: 1rem; font-size: 0.9rem;">
+                לחיצה על פוסט או על שם הדף תפתח את עמוד הפייסבוק המלא בחלון חדש.
+            </p>
+</section>
+
+<section id="contact" class="content-section">
+<h2 class="section-title">צור קשר</h2>
+
+        <div style="margin-bottom: 22px; font-size: 1.05rem; line-height: 1.7;">
+            אפשר ליצור קשר ישיר גם עכשיו:
+            <br>
+            ☎️ טלפון: <strong>054-4545371</strong>
+            <br>
+            📧 אימייל: <strong>asivision.ai@gmail.com</strong>
+        </div>
+
+        <p>
+            לא משנה אם אתה עסק קטן, יוצר עצמאי או מישהו עם רעיון לסרטון או אוטומציה –
+            אפשר להתחיל משיחה קצרה.
+        </p>
+
+        <form id="contact-form" class="contact-form">
+            <div>
+                <label for="name">שם מלא</label>
+                <input type="text" id="name" name="name" placeholder="איך לקרוא לך?" required>
+            </div>
+            <div>
+                <label for="email">אימייל</label>
+                <input type="email" id="email" name="email" placeholder="info@email.com" required>
+            </div>
+            <div>
+                <label for="phone">טלפון</label>
+                <input type="tel" id="phone" name="phone" placeholder="05x-xxxxxxx">
+            </div>
+            <div>
+                <label for="message">ספר/י לי קצת על מה שיש לך בראש</label>
+                <textarea id="message" name="message" placeholder="וידאו? אוטומציה? שילוב בין שניהם?" required></textarea>
+            </div>
+            <div class="contact-submit">
+                <button type="submit" class="cta-main">שלח / שלחי הודעה</button>
+            </div>
+        </form>
+
+        <p id="form-status" style="margin-top: 14px; font-size: 0.9rem;"></p>
+</section>
+
+  </main>
+</div>
+
+<footer class="site-footer floating-footer">
+  © כל הזכויות שמורות ל-AsIVision
+</footer>
+
+<div class="video-modal" id="video-modal">
+    <div class="video-modal-dialog">
+        <button class="video-modal-close" id="video-close" type="button">✕</button>
+
+        <iframe
+            id="modal-video"
+            src=""
+            frameborder="0"
+            allow="autoplay; fullscreen"
+            allowfullscreen
+            style="width:100%; aspect-ratio:16/9; border-radius:12px; display: block;">
+        </iframe>
+    </div>
+</div>
+
+<script>
+(function () {
+    const modal = document.getElementById("video-modal");
+    const iframe = document.getElementById("modal-video");
+    const closeBtn = document.getElementById("video-close");
+
+    if (!modal || !iframe || !closeBtn) return;
+
+    function openVideo(youtubeId) {
+      // שימוש בכתובת הפשוטה ביותר, בדיוק כמו באתר שעובד לך
+      modal.classList.add("open");
+      iframe.src = "https://www.youtube.com/embed/" + youtubeId + "?autoplay=1&rel=0";
+    }
+
+    function closeVideo() {
+      modal.classList.remove("open");
+      iframe.src = ""; // הסרת המקור מפסיקה את הסרטון ומעלימה את השגיאה
+    }
+
+    closeBtn.addEventListener("click", closeVideo);
+    
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) closeVideo();
+    });
+
+    // מאזין ללחיצות על המסכים
+    document.querySelectorAll(".monitor[data-video]").forEach((monitor) => {
+      const id = monitor.getAttribute("data-video");
+      const btn = monitor.querySelector(".monitor-play-btn");
+      
+      const handleOpen = (e) => {
+        e.stopPropagation();
+        openVideo(id);
+      };
+
+      monitor.addEventListener("click", handleOpen);
+      if (btn) btn.addEventListener("click", handleOpen);
+    });
+
+    // טיפול ב"בקרוב"
+    document.querySelectorAll(".monitor[data-soon='true']").forEach((monitor) => {
+      monitor.addEventListener("click", (e) => {
+        e.stopPropagation();
+        alert("הסרטון יהיה זמין בקרוב 🙂");
+      });
+    });
+  })();
+  
+  // Contact form (שומר על מה שעבד)
+  (function () {
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyN22RhkEJQ4MWjAyrkvNlMkDKKIoOrzujO4WFGbvHwTPTNAieFEA4hXCvMnWbzNRHrWA/exec";
+    const form = document.getElementById("contact-form");
+    const statusEl = document.getElementById("form-status");
+    if (!form || !statusEl || !SCRIPT_URL) return;
+
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+      const data = new FormData(form);
+
+      statusEl.textContent = "שולח את ההודעה…";
+      statusEl.style.color = "#f5f7fb";
+
+      try {
+        await fetch(SCRIPT_URL, {
+          method: "POST",
+          mode: "no-cors",
+          body: data
+        });
+        statusEl.textContent = "✅ ההודעה נשלחה בהצלחה! אחזור אליך בהקדם 🙌";
+        statusEl.style.color = "#a8ffb0";
+        form.reset();
+      } catch (err) {
+        console.error("שגיאה בשליחה:", err);
+        statusEl.textContent = "❌ משהו השתבש בשליחה. נסה/י שוב בעוד רגע.";
+        statusEl.style.color = "#ffb3b3";
+      }
+    });
+  })();
+</script>
+
+</body>
+</html>
