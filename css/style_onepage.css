@@ -931,3 +931,129 @@ form,
   height: 100%;
   aspect-ratio: 16 / 9;
 }
+
+/* --- פתרון משולב: טקסט לא חתוך + מסכים וכפתורים תקינים --- */
+@media (max-width: 768px) {
+    
+    /* 1. מניעת חיתוך כללי אך שמירה על מבנה */
+    html, body {
+        overflow-x: hidden !important;
+        width: 100% !important;
+        height: 100%;
+        position: relative;
+    }
+
+    main {
+        height: 100vh;
+        overflow-y: scroll;
+        scroll-snap-type: y proximity;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .artboard {
+        width: 100% !important;
+        transform: none !important;
+        margin: 0 !important;
+    }
+
+    section {
+        min-height: 100vh;
+        height: auto;
+        padding: 80px 20px; 
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* 2. תיקון הטקסטים (מה שעבד בניסיון האחרון) */
+    h1, h2, h3, .hero-title, .hero-subtitle, p, .point span {
+        white-space: normal !important; 
+        word-wrap: break-word !important;
+        overflow-wrap: break-word !important;
+        max-width: 100% !important;
+        text-align: center;
+    }
+
+    .hero-title {
+        font-size: 1.5rem !important;
+        line-height: 1.2 !important;
+    }
+
+    /* 3. החזרת הכפתורים הצפים למצב התקין (מה שעבד קודם) */
+    .floating-nav {
+        top: 10px !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important; /* מרכוז מושלם של התפריט */
+        width: 95% !important;
+        padding: 8px 4px !important;
+        display: flex !important;
+        flex-wrap: wrap !important; /* מאפשר לכפתורים לרדת שורה אם אין מקום */
+        justify-content: center !important;
+        gap: 6px !important; /* רווח קטן בין כפתור לכפתור */
+        background: rgba(10, 25, 47, 0.95) !important;
+        border: 1px solid rgba(100, 255, 218, 0.3) !important;
+        border-radius: 12px !important;
+        z-index: 9999 !important;
+    }
+
+    .nav-link {
+        font-size: 0.75rem !important; /* טקסט קטן יותר שמתאים למובייל */
+        padding: 6px 10px !important;
+        margin: 0 !important;
+        white-space: nowrap !important; /* מונע מהטקסט בתוך הכפתור להישבר */
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 6px;
+    }
+
+    .nav-cta {
+        background: #64ffda !important; /* מדגיש את כפתור צור קשר */
+        color: #0a192f !important;
+        font-weight: bold;
+    }
+
+    /* 4. החזרת המסכים למצב התקין (מה שעבד קודם) */
+    .monitors-section {
+        padding-top: 60px !important;
+    }
+
+    .monitors-wrap {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 40px !important; /* רווח ברור בין מסך למסך */
+        width: 100% !important;
+        align-items: center !important;
+    }
+
+    .monitor {
+        width: 85% !important;
+        max-width: 300px !important;
+        margin: 0 auto !important;
+        transform: scale(1) !important;
+        position: relative !important;
+        left: auto !important;
+        right: auto !important;
+    }
+
+    .monitor-text {
+        position: relative !important;
+        top: auto !important;
+        left: auto !important;
+        transform: none !important;
+        padding: 10px 0 !important;
+        font-size: 0.85rem !important;
+        display: block !important;
+        text-align: center;
+    }
+
+    /* 5. ניקוי רעשים */
+    .pipe, .floating-code, .tech-lines {
+        display: none !important;
+    }
+
+    /* טופס יצירת קשר */
+    .contact-form {
+        width: 100% !important;
+        padding: 10px !important;
+    }
+}
