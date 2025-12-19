@@ -1024,27 +1024,4 @@ form,
     }
 }
 
-/* תיקון הנדנוד והמרכוז של הכפתורים הצפים בסלולר */
-.floating-nav {
-    top: 10px !important;
-    left: 5% !important;        /* משאיר מרווח קטן מהצדדים */
-    right: 5% !important;       /* מבטיח שהרוחב לא יחרוג */
-    width: 90% !important;      /* רוחב כמעט מלא של המסך */
-    transform: none !important; /* מבטל את ה-transform שגרם להסטה */
-    
-    padding: 8px 4px !important;
-    display: flex !important;
-    flex-wrap: wrap !important;   /* מאפשר לכפתורים לרדת שורה אם הם רבים מדי */
-    justify-content: center !important; /* ממרכז את הכפתורים בתוך התפריט */
-    gap: 4px !important;
-    background: rgba(10, 25, 47, 0.95) !important;
-    border: 1px solid rgba(100, 255, 218, 0.3) !important;
-    border-radius: 12px !important;
-    z-index: 9999 !important;
-}
 
-/* מוודא שהלינקים עצמם לא יחרגו מהשורה */
-.floating-nav .nav-link {
-    font-size: 0.8rem !important; /* הקטנה קלה של הפונט למובייל */
-    padding: 6px 8px !important;
-}
