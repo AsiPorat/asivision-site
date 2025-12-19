@@ -932,93 +932,96 @@ form,
   aspect-ratio: 16 / 9;
 }
 
-/* --- פתרון משולב: טקסט לא חתוך + מסכים וכפתורים תקינים --- */
+/* --- תיקון מקיף למובייל וספארי --- */
 @media (max-width: 768px) {
     
-    /* 1. מניעת חיתוך כללי אך שמירה על מבנה */
     html, body {
+        /* מאפשר גלילה חלקה ומונע רעידות */
         overflow-x: hidden !important;
-        width: 100% !important;
-        height: 100%;
+        height: auto !important; 
         position: relative;
     }
 
     main {
-        height: 100vh;
-        overflow-y: scroll;
-        scroll-snap-type: y proximity;
-        -webkit-overflow-scrolling: touch;
-    }
-
-    .artboard {
-        width: 100% !important;
-        transform: none !important;
-        margin: 0 !important;
+        /* משחררים את הנעילה הקשיחה של ה-100vh שגרמה לעמודים לעלות אחד על השני */
+        height: auto !important;
+        overflow-y: visible !important;
+        scroll-snap-type: none !important; /* במובייל עדיף גלילה רגילה כדי למנוע קפיצות תוכן */
     }
 
     section {
+        /* כל סקשן יתפוס לפחות את גובה המסך, אבל יגדל אם יש הרבה טקסט */
         min-height: 100vh;
-        height: auto;
-        padding: 80px 20px; 
-        box-sizing: border-box;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    /* 2. תיקון הטקסטים (מה שעבד בניסיון האחרון) */
-    h1, h2, h3, .hero-title, .hero-subtitle, p, .point span {
-        white-space: normal !important; 
-        word-wrap: break-word !important;
-        overflow-wrap: break-word !important;
-        max-width: 100% !important;
-        text-align: center;
-    }
-
-    .hero-title {
-        font-size: 1.5rem !important;
-        line-height: 1.2 !important;
-    }
-
-    /* --- תיקון סופי לספארי: שחרור גלילה ומניעת נדנוד --- */
-@media (max-width: 768px) {
-    
-    html {
-        /* מאפשר גלילה מגנטית ב-ספארי */
-        scroll-snap-type: y mandatory;
-        height: 100%;
-        overflow-x: hidden;
-    }
-
-    body {
-        /* שחרור הנעילה: משנים מ-hidden ל-auto */
-        overflow-y: auto !important; 
-        overflow-x: hidden !important;
-        height: 100%;
-        position: relative;
-        -webkit-overflow-scrolling: touch;
-        width: 100%;
-        margin: 0;
-    }
-
-    main {
-        scroll-snap-type: y mandatory;
-        height: 100%;
-        overflow-y: visible; /* מאפשר ל-body לנהל את הגלילה */
-    }
-
-    section {
-        height: 100vh;
-        height: -webkit-fill-available;
-        scroll-snap-align: start;
-        scroll-snap-stop: always;
+        height: auto !important; 
+        padding: 100px 20px 60px !important; /* מרווח עליון כדי שלא יתקע בתפריט הצף */
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        padding: 60px 20px;
-        box-sizing: border-box;
+        border-bottom: 1px solid rgba(255,255,255,0.1); /* קו עדין מפריד בין "דפים" */
     }
+
+    /* תיקון התפריט הצף - פתרון לספארי */
+    .floating-nav {
+        top: 10px !important;
+        left: 5% !important;
+        right: 5% !important;
+        width: 90% !important;
+        transform: none !important; 
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important; /* מאפשר דפדוף בתוך התפריט אם הוא רחב מדי */
+        justify-content: flex-start !important;
+        padding: 8px 15px !important;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* סידור 3 המסכים - שיתפרסו לאורך */
+    .monitors-wrap {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 50px !important; /* רווח בין מסך למסך */
+        width: 100% !important;
+        padding-top: 40px;
+    }
+
+    .monitor {
+        width: 100% !important;
+        max-width: 320px !important;
+        transform: scale(1) !important; /* ביטול ההגדלה של המסך המרכזי במובייל */
+        margin: 0 auto !important;
+    }
+
+    .monitor-center {
+        transform: none !important; /* ביטול ה-translateY שדוחף אותו במחשב */
+        order: 2; /* מסדר אותם לפי היגיון: וידאו, סטודיו, אוטומציה */
+    }
+
+    /* הסתרת אלמנטים גרפיים שמפריעים במובייל */
+    .pipe, .floating-code, .pipe-left-vertical, .pipe-right-vertical {
+        display: none !important;
+    }
+
+    /* תיקון טקסטים */
+    .hero-title {
+        font-size: 1.6rem !important;
+        line-height: 1.3 !important;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.1rem !important;
+    }
+
+    /* תיקון הטופס */
+    .contact-form {
+        width: 100% !important;
+        margin: 20px 0 !important;
+    }
+    
+    .contact-form input, .contact-form textarea {
+        width: 100% !important;
+        padding: 12px !important;
+    }
+}
 
     /* תיקון הנדנוד של הכפתורים הצפים */
     .floating-nav {
