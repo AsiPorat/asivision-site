@@ -148,80 +148,28 @@
             width: 100%;
         }
         .demo-reset-btn:hover { background: #00f2ff; color: #000; }
-       /* ===== MOBILE FIX FOR PRESENTATION ===== */
-
-@media (max-width: 900px){
-
-    body{
-        overflow:auto !important;
-        display:block !important;
-        height:auto !important;
-        min-height:100vh !important;
+      /* ===== MOBILE SCALE FIX ===== */
+@media (max-width: 900px) {
+    body {
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        display: block !important;
+        height: auto !important;
+        min-height: 100vh !important;
     }
 
-    .presentation-container{
-        width:100vw !important;
-        height:auto !important;
-        min-height:100vh !important;
-        transform:none !important;
-        box-shadow:none !important;
+    .presentation-container {
+        width: 1280px !important;
+        height: 720px !important;
+        transform: scale(calc(100vw / 1280)) !important;
+        transform-origin: top center !important;
+        margin: 0 auto !important;
     }
 
-    .slide{
-        height:auto !important;
-        min-height:100vh !important;
-        padding:20px 16px !important;
-    }
-
-    .w-full.h-full.flex.gap-8.items-stretch{
-        flex-direction:column !important;
-        gap:16px !important;
-    }
-
-    .demo-side-box{
-        width:100% !important;
-        min-width:0 !important;
-    }
-
-    .flex-1.min-w-0.h-full.overflow-hidden.rounded-3xl{
-        height:auto !important;
-        min-height:70vh !important;
-    }
-
-    .demo-frame{
-        width:100% !important;
-        height:70vh !important;
-        min-height:520px !important;
-    }
-
-    .grid{
-        grid-template-columns:1fr !important;
-    }
-
-    h1{
-        font-size:42px !important;
-        line-height:1.15 !important;
-    }
-
-    h2{
-        font-size:28px !important;
-        line-height:1.2 !important;
-    }
-
-    h3{
-        font-size:22px !important;
-        line-height:1.25 !important;
-    }
-
-    p, li{
-        font-size:16px !important;
-        line-height:1.5 !important;
-    }
-
-    .btn-nav{
-        bottom:12px !important;
-        padding:8px 14px !important;
-        font-size:14px !important;
+    .btn-nav {
+        position: fixed !important;
+        bottom: 10px !important;
+        z-index: 9999 !important;
     }
 }
     </style>
