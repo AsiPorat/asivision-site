@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+
+<title>AsIVision Demo</title>
+
+<style>
+
+body{
+margin:0;
+background:#05070a;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+overflow:hidden;
+font-family:Arial, sans-serif;
+}
+
+.viewer{
+width:1280px;
+height:720px;
+transform-origin:top center;
+}
+
+iframe{
+width:1280px;
+height:720px;
+border:none;
+background:#000;
+}
+
+/* התאמה למובייל */
+
+@media (max-width:900px){
+
+body{
+align-items:flex-start;
+overflow:auto;
+}
+
+.viewer{
+transform:scale(calc(100vw / 1280));
+margin-top:20px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="viewer">
+
+<iframe id="presentationFrame"></iframe>
+
+</div>
+
+<script>
+
+const params = new URLSearchParams(window.location.search);
+const file = params.get("file");
+
+if(file){
+document.getElementById("presentationFrame").src = file;
+}
+
+</script>
+
+</body>
+</html>
