@@ -129,6 +129,20 @@
             border: 1px solid rgba(0, 242, 255, 0.2);
             width: 100%;
         }
+        /* ===== MOBILE FIX FOR PRESENTATION ===== */
+
+@media (max-width:900px){
+
+body{
+overflow:auto;
+}
+
+.presentation-container{
+transform:scale(calc(100vw / 1280));
+transform-origin:top center;
+}
+
+}
     </style>
 </head>
 <body>
