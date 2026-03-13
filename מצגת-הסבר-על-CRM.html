@@ -129,86 +129,31 @@
             border: 1px solid rgba(0, 242, 255, 0.2);
             width: 100%;
         }
-        /* ===== MOBILE FIX FOR PRESENTATION ===== */
-
-/* ===== MOBILE FIX FOR PRESENTATION ===== */
-
-@media (max-width: 900px){
-
-    body{
-        overflow:auto !important;
+      /* ===== MOBILE SCALE FIX ===== */
+@media (max-width: 900px) {
+    body {
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
     }
 
-    .presentation-wrapper{
-        display:block !important;
-        width:100vw !important;
-        height:auto !important;
-        min-height:100vh !important;
+    .presentation-wrapper {
+        display: block !important;
+        height: auto !important;
+        min-height: 100vh !important;
     }
 
-    .slide-container{
-        width:100vw !important;
-        height:auto !important;
-        min-height:100vh !important;
-        transform:none !important;
-        box-shadow:none !important;
+    .slide-container {
+        width: 1280px !important;
+        height: 720px !important;
+        transform: scale(calc(100vw / 1280)) !important;
+        transform-origin: top center !important;
+        margin: 0 auto !important;
     }
 
-    .slide{
-        position:relative !important;
-        height:auto !important;
-        min-height:100vh !important;
-        padding:24px 18px !important;
-    }
-
-    .slide-title{
-        font-size:32px !important;
-        margin-bottom:24px !important;
-        padding-right:16px !important;
-        border-right-width:8px !important;
-    }
-
-    .content-area{
-        display:block !important;
-        height:auto !important;
-    }
-
-    .grid{
-        grid-template-columns:1fr !important;
-        gap:20px !important;
-    }
-
-    h1{
-        font-size:46px !important;
-        line-height:1.1 !important;
-    }
-
-    h2{
-        font-size:30px !important;
-        line-height:1.2 !important;
-    }
-
-    h3{
-        font-size:22px !important;
-    }
-
-    h4{
-        font-size:18px !important;
-    }
-
-    p, li{
-        font-size:16px !important;
-        line-height:1.55 !important;
-    }
-
-    .nav-btn{
-        bottom:12px !important;
-        padding:10px 16px !important;
-        font-size:14px !important;
-    }
-
-    .arrow-sep{
-        display:none !important;
+    .nav-btn {
+        position: fixed !important;
+        bottom: 10px !important;
+        z-index: 9999 !important;
     }
 }
     </style>
