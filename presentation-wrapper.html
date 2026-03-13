@@ -1,184 +1,184 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-<title>AsIVision Presentation Viewer</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <title>AsIVision Presentation Viewer</title>
+  <style>
+    * { box-sizing: border-box; }
 
-<style>
-* {
-    box-sizing: border-box;
-}
+    html, body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      background: #05070a;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+    }
 
-html, body {
-    margin: 0;
-    width: 100%;
-    height: 100%;
-    background: #05070a;
-    font-family: Arial, sans-serif;
-    overflow: hidden;
-}
+    body {
+      display: flex;
+      flex-direction: column;
+    }
 
-body {
-    display: flex;
-    flex-direction: column;
-}
-
-.topbar {
-    height: 56px;
-    min-height: 56px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 16px;
-    background: rgba(10, 14, 20, 0.96);
-    border-bottom: 1px solid rgba(255,255,255,0.08);
-    color: white;
-    z-index: 20;
-}
-
-.topbar-title {
-    font-size: 14px;
-    font-weight: 700;
-    color: #e2e8f0;
-}
-
-.topbar-actions {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-}
-
-.topbar-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    height: 36px;
-    padding: 0 14px;
-    border-radius: 999px;
-    text-decoration: none;
-    border: 1px solid rgba(255,255,255,0.12);
-    background: rgba(255,255,255,0.05);
-    color: white;
-    font-size: 13px;
-    cursor: pointer;
-}
-
-.topbar-btn:hover {
-    background: rgba(0,242,255,0.14);
-    border-color: #00f2ff;
-    color: #00f2ff;
-}
-
-.viewer-shell {
-    flex: 1;
-    position: relative;
-    overflow: auto;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 16px;
-}
-
-.viewer-stage {
-    position: relative;
-    width: 1280px;
-    height: 720px;
-    transform-origin: top center;
-}
-
-.viewer-frame {
-    width: 1280px;
-    height: 720px;
-    border: none;
-    background: #000;
-    border-radius: 18px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.45);
-}
-
-@media (max-width: 900px) {
     .topbar {
-        height: 52px;
-        min-height: 52px;
-        padding: 0 10px;
+      height: 56px;
+      min-height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 14px;
+      background: rgba(10, 14, 20, 0.96);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      color: white;
     }
 
     .topbar-title {
-        font-size: 12px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .topbar-actions {
+      display: flex;
+      gap: 10px;
     }
 
     .topbar-btn {
-        height: 34px;
-        padding: 0 10px;
-        font-size: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 36px;
+      padding: 0 14px;
+      border-radius: 999px;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.05);
+      color: white;
+      font-size: 13px;
+      cursor: pointer;
     }
 
     .viewer-shell {
-        padding: 10px;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 10px;
+    }
+
+    .viewer-box {
+      position: relative;
+      overflow: hidden;
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.45);
+      background: #000;
+    }
+
+    .viewer-stage {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1280px;
+      height: 720px;
+      transform-origin: top left;
     }
 
     .viewer-frame {
-        border-radius: 12px;
+      width: 1280px;
+      height: 720px;
+      border: none;
+      display: block;
+      background: #000;
     }
-}
-</style>
+
+    @media (max-width: 900px) {
+      .topbar {
+        height: 50px;
+        min-height: 50px;
+        padding: 0 10px;
+      }
+
+      .topbar-title {
+        font-size: 12px;
+      }
+
+      .topbar-btn {
+        height: 32px;
+        padding: 0 10px;
+        font-size: 12px;
+      }
+
+      .viewer-shell {
+        padding: 8px;
+      }
+    }
+  </style>
 </head>
 <body>
 
-<div class="topbar">
+  <div class="topbar">
     <div class="topbar-title">AsIVision Presentation Viewer</div>
     <div class="topbar-actions">
-        <a class="topbar-btn" href="index.html">חזרה לאתר</a>
-        <button class="topbar-btn" id="fullscreenBtn" type="button">מסך מלא</button>
+      <a class="topbar-btn" href="index.html">חזרה לאתר</a>
+      <button class="topbar-btn" id="fullscreenBtn" type="button">מסך מלא</button>
     </div>
-</div>
+  </div>
 
-<div class="viewer-shell" id="viewerShell">
-    <div class="viewer-stage" id="viewerStage">
+  <div class="viewer-shell" id="viewerShell">
+    <div class="viewer-box" id="viewerBox">
+      <div class="viewer-stage" id="viewerStage">
         <iframe class="viewer-frame" id="presentationFrame"></iframe>
+      </div>
     </div>
-</div>
+  </div>
 
-<script>
-const params = new URLSearchParams(window.location.search);
-const file = params.get("file");
-const frame = document.getElementById("presentationFrame");
-const stage = document.getElementById("viewerStage");
-const shell = document.getElementById("viewerShell");
-const fullscreenBtn = document.getElementById("fullscreenBtn");
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const file = params.get("file");
 
-if (file) {
-    frame.src = file;
-}
+    const frame = document.getElementById("presentationFrame");
+    const shell = document.getElementById("viewerShell");
+    const box = document.getElementById("viewerBox");
+    const stage = document.getElementById("viewerStage");
+    const fullscreenBtn = document.getElementById("fullscreenBtn");
 
-function fitPresentation() {
-    const availableWidth = shell.clientWidth;
-    const availableHeight = shell.clientHeight;
-
-    const scaleX = availableWidth / 1280;
-    const scaleY = availableHeight / 720;
-    const scale = Math.min(scaleX, scaleY, 1);
-
-    stage.style.transform = `scale(${scale})`;
-    stage.style.marginBottom = `${Math.max(0, 720 * scale < availableHeight ? 0 : 24)}px`;
-}
-
-window.addEventListener("resize", fitPresentation);
-window.addEventListener("load", fitPresentation);
-
-frame.addEventListener("load", () => {
-    fitPresentation();
-});
-
-fullscreenBtn.addEventListener("click", async () => {
-    const el = document.documentElement;
-    if (!document.fullscreenElement) {
-        await el.requestFullscreen().catch(() => {});
-    } else {
-        await document.exitFullscreen().catch(() => {});
+    if (file) {
+      frame.src = file;
     }
-});
-</script>
 
+    function fitPresentation() {
+      const shellWidth = shell.clientWidth;
+      const shellHeight = shell.clientHeight;
+
+      const scaleX = shellWidth / 1280;
+      const scaleY = shellHeight / 720;
+      const scale = Math.min(scaleX, scaleY, 1);
+
+      const scaledWidth = Math.round(1280 * scale);
+      const scaledHeight = Math.round(720 * scale);
+
+      box.style.width = scaledWidth + "px";
+      box.style.height = scaledHeight + "px";
+
+      stage.style.transform = "scale(" + scale + ")";
+    }
+
+    window.addEventListener("resize", fitPresentation);
+    window.addEventListener("load", fitPresentation);
+
+    frame.addEventListener("load", fitPresentation);
+
+    fullscreenBtn.addEventListener("click", async () => {
+      const el = document.documentElement;
+      try {
+        if (!document.fullscreenElement) {
+          await el.requestFullscreen();
+        } else {
+          await document.exitFullscreen();
+        }
+      } catch (e) {}
+    });
+  </script>
 </body>
 </html>
