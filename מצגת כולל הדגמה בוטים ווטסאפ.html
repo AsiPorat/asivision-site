@@ -1339,7 +1339,9 @@
                 await addMsg('המערכת לא עולה', 'user');
                 status.innerHTML = '<p class="text-2xl text-blue-400 font-bold">מערכת: המחלקה הטכנית מקבלת הודעה שלקוח פנה ומה התקלה.</p>';
             }
-        }
+    
+
+        // כל הקוד שכבר קיים אצלך למעלה נשאר כמו שהוא
 
         function resetBasicDemo() {
             const frame = document.getElementById('basic-demo-frame');
@@ -1354,57 +1356,27 @@
             try { frame.contentWindow.location.reload(); }
             catch (e) { frame.srcdoc = frame.srcdoc; }
         }
-function doFit() {
-    const el = document.getElementById('presentation');
-    if (!el) return;
 
-    const isMobile = window.innerWidth <= 900;
-    let s;
-
-    if (isMobile) {
-        s = window.innerWidth / 1280;
-        document.body.style.overflowX = 'hidden';
-        document.body.style.overflowY = 'auto';
-        document.body.style.display = 'block';
-        document.body.style.height = `${720 * s + 40}px`;
-        document.body.style.minHeight = `${720 * s + 40}px`;
-    } else {
-        const sx = window.innerWidth / 1280;
-        const sy = window.innerHeight / 720;
-        s = Math.min(sx, sy, 1);
-        document.body.style.overflow = 'hidden';
-        document.body.style.display = 'flex';
-        document.body.style.height = '100vh';
-        document.body.style.minHeight = '100vh';
-    }
-
-    el.style.transformOrigin = 'top center';
-    el.style.transform = `scale(${s})`;
-}
-
-window.addEventListener('resize', doFit);
-doFit();
         function fitPresentation() {
+            const wrapper = document.querySelector('.presentation-container');
+            if (!wrapper) return;
 
-    const wrapper = document.querySelector('.presentation-wrapper');
-    if (!wrapper) return;
+            const baseWidth = 1280;
+            const baseHeight = 720;
 
-    const baseWidth = 1280;
-    const baseHeight = 720;
+            const scaleX = window.innerWidth / baseWidth;
+            const scaleY = window.innerHeight / baseHeight;
+            const scale = Math.min(scaleX, scaleY);
 
-    const scaleX = window.innerWidth / baseWidth;
-    const scaleY = window.innerHeight / baseHeight;
+            wrapper.style.transformOrigin = "top center";
+            wrapper.style.transform = "scale(" + scale + ")";
 
-    const scale = Math.min(scaleX, scaleY);
+            document.body.style.overflowY = "auto";
+            document.body.style.overflowX = "hidden";
+        }
 
-    wrapper.style.transformOrigin = "top center";
-    wrapper.style.transform = "scale(" + scale + ")";
-
-    document.body.style.overflowY = "auto";
-}
-
-window.addEventListener("resize", fitPresentation);
-window.addEventListener("load", fitPresentation);
-    </script>
+        window.addEventListener("resize", fitPresentation);
+        window.addEventListener("load", fitPresentation);
+</script>
 </body>
 </html>
