@@ -2,7 +2,7 @@
 <html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title>ASIVISION - CRM & Automation Masterclass</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -129,6 +129,33 @@
             border: 1px solid rgba(0, 242, 255, 0.2);
             width: 100%;
         }
+    
+        /* ===== SAFE MOBILE FIT ===== */
+        @media (max-width: 900px) {
+            body {
+                overflow-x: auto !important;
+                overflow-y: auto !important;
+                -webkit-overflow-scrolling: touch;
+            }
+            .presentation-wrapper {
+                display: block !important;
+                width: auto !important;
+                height: auto !important;
+                min-width: 1280px !important;
+                min-height: 720px !important;
+            }
+            .slide-container {
+                width: 1280px !important;
+                height: 720px !important;
+                transform: none !important;
+                margin: 0 auto !important;
+            }
+            .nav-btn {
+                position: fixed !important;
+                z-index: 1000 !important;
+            }
+        }
+
     </style>
 </head>
 <body>
