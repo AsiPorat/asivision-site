@@ -129,33 +129,6 @@
             border: 1px solid rgba(0, 242, 255, 0.2);
             width: 100%;
         }
-    
-        /* ===== SAFE MOBILE FIT ===== */
-        @media (max-width: 900px) {
-            body {
-                overflow-x: auto !important;
-                overflow-y: auto !important;
-                -webkit-overflow-scrolling: touch;
-            }
-            .presentation-wrapper {
-                display: block !important;
-                width: auto !important;
-                height: auto !important;
-                min-width: 1280px !important;
-                min-height: 720px !important;
-            }
-            .slide-container {
-                width: 1280px !important;
-                height: 720px !important;
-                transform: none !important;
-                margin: 0 auto !important;
-            }
-            .nav-btn {
-                position: fixed !important;
-                z-index: 1000 !important;
-            }
-        }
-
     </style>
 </head>
 <body>
@@ -337,7 +310,28 @@
     // Initialize scaling to fit browser
     function scaleDeck() {
         const deck = document.getElementById('deck');
-        const s = Math.min(window.innerWidth / 1280, window.innerHeight / 720, 1);
+        const wrapper = document.querySelector('.presentation-wrapper');
+        if (!deck || !wrapper) return;
+
+        const isMobile = window.innerWidth <= 900;
+        let s;
+
+        if (isMobile) {
+            s = window.innerWidth / 1280;
+            wrapper.style.display = 'block';
+            wrapper.style.height = `${720 * s + 32}px`;
+            wrapper.style.minHeight = `${720 * s + 32}px`;
+            document.body.style.overflowX = 'hidden';
+            document.body.style.overflowY = 'auto';
+        } else {
+            s = Math.min(window.innerWidth / 1280, window.innerHeight / 720, 1);
+            wrapper.style.display = 'flex';
+            wrapper.style.height = '100vh';
+            wrapper.style.minHeight = '100vh';
+            document.body.style.overflow = 'hidden';
+        }
+
+        deck.style.transformOrigin = 'top center';
         deck.style.transform = `scale(${s})`;
     }
 
