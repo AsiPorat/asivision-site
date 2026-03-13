@@ -2,7 +2,7 @@
 <html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ASIVISION - CRM & Automation Masterclass</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -129,7 +129,6 @@
             border: 1px solid rgba(0, 242, 255, 0.2);
             width: 100%;
         }
- 
     </style>
 </head>
 <body>
@@ -308,31 +307,17 @@
         prevBtn.disabled = (current === 0);
     }
 
+    // Initialize scaling to fit browser
     function scaleDeck() {
-    const deck = document.getElementById('deck');
-    const wrapper = document.querySelector('.presentation-wrapper');
-    const isMobile = window.innerWidth <= 900;
-
-    let s;
-    if (isMobile) {
-        s = window.innerWidth / 1280;
-        wrapper.style.display = 'block';
-        wrapper.style.height = `${720 * s + 40}px`;
-        wrapper.style.minHeight = `${720 * s + 40}px`;
-        document.body.style.overflowX = 'hidden';
-        document.body.style.overflowY = 'auto';
-    } else {
-        s = Math.min(window.innerWidth / 1280, window.innerHeight / 720, 1);
-        wrapper.style.display = 'flex';
-        wrapper.style.height = '100vh';
-        wrapper.style.minHeight = '100vh';
-        document.body.style.overflow = 'hidden';
+        const deck = document.getElementById('deck');
+        const s = Math.min(window.innerWidth / 1280, window.innerHeight / 720, 1);
+        deck.style.transform = `scale(${s})`;
     }
 
-    deck.style.transformOrigin = 'top center';
-    deck.style.transform = `scale(${s})`;
-}
+    window.addEventListener('resize', scaleDeck);
+    scaleDeck();
+    prevBtn.disabled = true;
+</script>
 
-window.addEventListener('resize', scaleDeck);
-scaleDeck();
-prevBtn.disabled = true;
+</body>
+</html>
