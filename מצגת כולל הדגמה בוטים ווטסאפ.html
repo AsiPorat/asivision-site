@@ -2,7 +2,7 @@
 <html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title>מצגת מהפכת האוטומציה</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -148,20 +148,31 @@
             width: 100%;
         }
         .demo-reset-btn:hover { background: #00f2ff; color: #000; }
-        /* ===== MOBILE FIX FOR PRESENTATION ===== */
+        
+        /* ===== SAFE MOBILE FIT ===== */
+        @media (max-width: 900px) {
+            body {
+                overflow-x: auto !important;
+                overflow-y: auto !important;
+                display: block !important;
+                height: auto !important;
+                width: auto !important;
+                min-width: 1280px !important;
+                min-height: 720px !important;
+                -webkit-overflow-scrolling: touch;
+            }
+            .presentation-container {
+                width: 1280px !important;
+                height: 720px !important;
+                transform: none !important;
+                margin: 0 auto !important;
+            }
+            .btn-nav {
+                position: fixed !important;
+                z-index: 1000 !important;
+            }
+        }
 
-@media (max-width:900px){
-
-body{
-overflow:auto;
-}
-
-.presentation-container{
-transform:scale(calc(100vw / 1280));
-transform-origin:top center;
-}
-
-}
     </style>
 </head>
 <body>
