@@ -442,26 +442,26 @@ if __name__ == "__main__":
 
 <script>
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxQcQPGW12AGDjAwj3zrKawNmps_Lw80o-D6Fa2d1qCZMsF0xYPkCsOd_Qk8sK5JK3Zww/exec";
-    const form = document.getElementById("contact-form");
-    const statusEl = document.getElementById("form-status");
-    const mainEl = document.querySelector("main");
 
-    form.addEventListener("submit", async function (e) {
-      e.preventDefault();
-      const data = new FormData(form);
-      statusEl.textContent = "שולח את ההודעה…";
-      statusEl.style.color = "#fff";
+document.querySelector("form").addEventListener("submit", function(e) {
+  e.preventDefault();
 
-      try {
-        await fetch(SCRIPT_URL, { method: "POST", mode: "no-cors", body: data });
-        statusEl.textContent = "✅ ההודעה נשלחה בהצלחה! אחזור אליך בהקדם 🙌";
-        statusEl.style.color = "#a8ffb0";
-        form.reset();
-      } catch (err) {
-        statusEl.textContent = "❌ תקלה בשליחה. נסו שוב או פנו בטלפון.";
-        statusEl.style.color = "#ffb3b3";
-      }
-    });
+  const form = e.target;
+  const data = new FormData(form);
+
+  fetch(SCRIPT_URL, {
+    method: "POST",
+    body: data
+  })
+  .then(() => {
+    alert("ההודעה נשלחה בהצלחה!");
+    form.reset();
+  })
+  .catch(() => {
+    alert("שגיאה בשליחה");
+  });
+});
+
 
     function applySnapMode() {
         if (window.innerWidth < 768) {
