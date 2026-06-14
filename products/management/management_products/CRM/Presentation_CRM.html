@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASIVISION - CRM & Automation Masterclass</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;700;900&family=Assistant:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --bg-dark: #07090c;
+            --accent-cyan: #00f2ff;
+            --text-white: #f8fafc;
+            --text-dim: #94a3b8;
+            --card-bg: rgba(30, 41, 59, 0.4);
+        }
+
+        * { box-sizing: border-box; }
+        body { 
+            margin: 0; 
+            padding: 0; 
+            background-color: #000; 
+            color: var(--text-white); 
+            font-family: 'Heebo', sans-serif;
+            overflow: hidden;
+        }
+
+        .presentation-wrapper {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000;
+        }
+
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            background-color: var(--bg-dark);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 0 100px rgba(0,0,0,0.9);
+            background-image: radial-gradient(circle at 100% 0%, rgba(0, 242, 255, 0.05) 0%, transparent 50%);
+            transform-origin: center;
+        }
+
+        .slide { 
+            display: none; 
+            width: 100%; 
+            height: 100%; 
+            flex-direction: column; 
+            padding: 60px 100px;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        
+        .slide.active { 
+            display: flex; 
+        }
+
+        /* Side-to-Side Animations */
+        .slide-in-right { animation: slideInRight 0.5s ease-out forwards; }
+        .slide-in-left { animation: slideInLeft 0.5s ease-out forwards; }
+
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes slideInLeft {
+            from { transform: translateX(-100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .slide-title {
+            font-size: 56px;
+            font-weight: 900;
+            margin-bottom: 40px;
+            border-right: 12px solid var(--accent-cyan);
+            padding-right: 25px;
+            line-height: 1.2;
+        }
+
+        .content-area { flex-grow: 1; display: flex; align-items: center; justify-content: center; width: 100%; position: relative; z-index: 2; }
+
+        /* CRM Visuals */
+        .process-box {
+            background: var(--card-bg);
+            border: 1px solid rgba(0, 242, 255, 0.1);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            flex: 1;
+            transition: 0.3s;
+        }
+        .process-box i { font-size: 44px; color: var(--accent-cyan); margin-bottom: 20px; }
+        .process-box h4 { font-size: 20px; font-weight: 900; margin-bottom: 12px; color: white; }
+        .process-box p { font-size: 15px; color: var(--text-dim); line-height: 1.5; margin: 0; }
+
+        .arrow-sep { font-size: 28px; color: var(--accent-cyan); opacity: 0.2; padding: 0 15px; }
+
+        /* Navigation Buttons */
+        .nav-btn {
+            position: fixed;
+            bottom: 30px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: white;
+            padding: 12px 30px;
+            cursor: pointer;
+            border-radius: 30px;
+            font-weight: bold;
+            z-index: 1000;
+            transition: 0.3s;
+        }
+        .nav-btn:hover { background: var(--accent-cyan); color: #000; box-shadow: 0 0 25px rgba(0, 242, 255, 0.4); }
+        .nav-btn:disabled { opacity: 0.1; cursor: default; }
+
+        .logic-card {
+            background: linear-gradient(135deg, rgba(0, 242, 255, 0.1) 0%, rgba(0, 102, 255, 0.1) 100%);
+            padding: 40px;
+            border-radius: 30px;
+            border: 1px solid rgba(0, 242, 255, 0.2);
+            width: 100%;
+        }
+    </style>
+
+
+<!-- AsIVision demo back button - visible only when presentation opens directly -->
+<style>
+  /* ===== AsIVision demo navigation ===== */
+  .asivision-demo-nav {
+    position: fixed;
+    top: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    display: flex;
+    gap: 10px;
+    padding: 8px 10px;
+    border-radius: 999px;
+    background: rgba(0,0,0,0.62);
+    border: 1px solid rgba(255,255,255,0.16);
+    box-shadow: 0 10px 26px rgba(0,0,0,0.35);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    font-family: Arial, sans-serif;
+  }
+  .asivision-demo-nav a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 7px 13px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.06);
+    white-space: nowrap;
+  }
+  .asivision-demo-nav a:hover { background: rgba(255,255,255,0.18); }
+  .asivision-demo-nav .nav-highlight { background: #00f2ff; color: #001233; }
+  body.asivision-embedded-demo .asivision-demo-nav { display: none !important; }
+  @media (max-width: 700px) {
+    .asivision-demo-nav { top: 8px; width: calc(100% - 18px); justify-content: center; flex-wrap: wrap; border-radius: 16px; gap: 6px; }
+    .asivision-demo-nav a { font-size: 12px; padding: 6px 10px; }
+  }
+</style>
+
+</head>
+<body>
+
+<nav class="asivision-demo-nav" aria-label="ניווט דוגמה">
+  <a href="../../../../index.html#home">בית</a>
+  <a href="../../../../index.html#examples" class="nav-highlight">מוצרים</a>
+  <a href="index.html">חזרה למוצר</a>
+</nav>
+<script>
+  (function () {
+    try {
+      if (window.self !== window.top) {
+        document.body.classList.add('asivision-embedded-demo');
+      }
+    } catch (e) {
+      document.body.classList.add('asivision-embedded-demo');
+    }
+  })();
+</script>
+
+<div class="presentation-wrapper">
+    <div class="slide-container" id="deck">
+
+        <!-- Slide 0: Hero (Identical to Original) -->
+        <div class="slide active" id="s0">
+            <div class="m-auto text-right">
+                <p style="color: var(--accent-cyan); letter-spacing: 5px; font-weight: 700; margin-bottom: 15px;">PRESENTATION 2026</p>
+                <h1 style="font-size: 100px; margin: 0; line-height: 1; font-weight: 900;">העתיד של</h1>
+                <h1 style="font-size: 100px; margin: 0; color: var(--accent-cyan); line-height: 1; font-weight: 900;">ASIVISION</h1>
+                <h2 style="font-size: 42px; margin-top: 30px; font-weight: 300; color: var(--text-dim);">מהפכת האוטומציה וייעול העסק</h2>
+                <div style="width: 200px; height: 8px; background: var(--accent-cyan); margin-top: 40px;"></div>
+            </div>
+        </div>
+
+        <!-- Slide 1: What is CRM? -->
+        <div class="slide" id="s1">
+            <h2 class="slide-title">מה זה בכלל CRM?</h2>
+            <div class="content-area">
+                <div class="grid grid-cols-2 gap-20 w-full">
+                    <div class="flex flex-col justify-center">
+                        <h3 class="text-3xl font-bold accent-cyan mb-8">הזיכרון הדיגיטלי של העסק</h3>
+                        <p class="text-2xl text-slate-300 leading-relaxed">CRM (ניהול קשרי לקוחות) הוא המקום המרכזי שבו נשמר כל המידע על הלקוחות בצורה חכמה:</p>
+                        <ul class="mt-8 space-y-6 text-xl">
+                            <li class="flex items-center gap-4"><i class="fa-solid fa-brain text-cyan-400"></i> <span><b>מוח אחד:</b> כל הלקוחות במערכת אחת מסודרת, לא בדפים ולא בווטסאפ.</span></li>
+                            <li class="flex items-center gap-4"><i class="fa-solid fa-history text-cyan-400"></i> <span><b>תיעוד מלא:</b> היסטוריית רכישות, שיחות והצעות מחיר בלחיצת כפתור.</span></li>
+                            <li class="flex items-center gap-4"><i class="fa-solid fa-check-double text-cyan-400"></i> <span><b>סדר ודיוק:</b> ניהול משימות ופולו-אפ אוטומטי שמונע טעויות.</span></li>
+                        </ul>
+                    </div>
+                    <div class="flex items-center justify-center">
+                        <div class="p-12 glass rounded-[3rem] border-cyan-500/20 text-center">
+                            <i class="fa-solid fa-database text-[13rem] accent-cyan opacity-80"></i>
+                            <p class="mt-8 text-2xl font-black italic text-white">הבסיס לכל עסק צומח</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2: CRM Processes -->
+        <div class="slide" id="s2">
+            <h2 class="slide-title">איך המידע זורם ב-CRM?</h2>
+            <div class="content-area flex-col">
+                <div class="flex items-center w-full gap-2 pt-10">
+                    <div class="process-box border-t-4 border-blue-500">
+                        <i class="fa-solid fa-user-plus"></i>
+                        <h4>1. כניסת ליד</h4>
+                        <p>הלקוח פונה בווטסאפ או באתר והפרטים נרשמים מייד ב-Backend.</p>
+                    </div>
+                    <i class="fa-solid fa-arrow-left arrow-sep"></i>
+                    <div class="process-box border-t-4 border-orange-500">
+                        <i class="fa-solid fa-handshake"></i>
+                        <h4>2. ניהול מכירה</h4>
+                        <p>תיעוד שיחות המכירה, שליחת הצעת מחיר ומעקב סטטוס עסקה.</p>
+                    </div>
+                    <i class="fa-solid fa-arrow-left arrow-sep"></i>
+                    <div class="process-box border-t-4 border-green-500">
+                        <i class="fa-solid fa-file-invoice-dollar"></i>
+                        <h4>3. סגירה וקבלה</h4>
+                        <p>העסקה נסגרה? המערכת מפיקה חשבונית וקבלה באופן אוטומטי.</p>
+                    </div>
+                    <i class="fa-solid fa-arrow-left arrow-sep"></i>
+                    <div class="process-box border-t-4 border-purple-500">
+                        <i class="fa-solid fa-truck-ramp-box"></i>
+                        <h4>4. אספקה ומחסן</h4>
+                        <p>עדכון מלאי, פתיחת משימת אריזה ושליחת הודעת עדכון ללקוח.</p>
+                    </div>
+                </div>
+                <div class="mt-20 p-8 glass rounded-3xl w-full text-center border-dashed border-2 border-cyan-500/30">
+                    <p class="text-3xl font-black accent-cyan uppercase italic">סנכרון מלא ללא הקלדה ידנית חוזרת</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Systems Sync -->
+        <div class="slide" id="s3">
+            <h2 class="slide-title">הכל מחובר למקום אחד</h2>
+            <div class="content-area flex-col">
+                <div class="grid grid-cols-4 gap-8 w-full mb-12">
+                    <div class="glass p-8 rounded-3xl text-center border-b-4 border-green-500">
+                        <i class="fa-brands fa-whatsapp text-5xl text-green-500 mb-4"></i>
+                        <h4 class="font-bold">WhatsApp API</h4>
+                        <p class="text-xs text-slate-500">קבלות ועדכונים לנייד</p>
+                    </div>
+                    <div class="glass p-8 rounded-3xl text-center border-b-4 border-blue-500">
+                        <i class="fa-solid fa-envelope text-5xl text-blue-500 mb-4"></i>
+                        <h4 class="font-bold">Google Mail</h4>
+                        <p class="text-xs text-slate-500">סנכרון מלא של מיילים</p>
+                    </div>
+                    <div class="glass p-8 rounded-3xl text-center border-b-4 border-yellow-500">
+                        <i class="fa-solid fa-calculator text-5xl text-yellow-500 mb-4"></i>
+                        <h4 class="font-bold">מערכות כספים</h4>
+                        <p class="text-xs text-slate-500">חיבור לריווחית/ירוקה</p>
+                    </div>
+                    <div class="glass p-8 rounded-3xl text-center border-b-4 border-slate-400">
+                        <i class="fa-solid fa-warehouse text-5xl text-slate-400 mb-4"></i>
+                        <h4 class="font-bold">מלאי חי</h4>
+                        <p class="text-xs text-slate-500">ניהול מלאי אוטומטי</p>
+                    </div>
+                </div>
+                <p class="text-2xl text-slate-300 text-center max-w-4xl leading-relaxed">ב-<b>ASIVISION</b>, ה-CRM מדבר עם כל המערכות שאתם כבר מכירים. ככה המידע תמיד מדויק וזמין מכל מקום.</p>
+            </div>
+        </div>
+
+        <!-- Slide 4: Automation Logic -->
+        <div class="slide" id="s4">
+            <h2 class="slide-title">איך פועלת האוטומציה?</h2>
+            <div class="content-area">
+                <div class="logic-card">
+                    <div class="grid grid-cols-3 gap-10 text-center">
+                        <div class="flex flex-col items-center">
+                            <div class="w-20 h-20 bg-white/10 rounded-full flex items-center justify-center text-3xl font-black mb-6">1</div>
+                            <h4 class="text-3xl font-bold accent-cyan mb-2">טריגר (Trigger)</h4>
+                            <p class="text-lg text-slate-400">לקוח מבצע פעולה<br>(למשל: שולח הודעה בווטסאפ)</p>
+                        </div>
+                        <div class="flex flex-col items-center relative">
+                            <i class="fa-solid fa-chevron-left absolute -left-5 top-1/2 -translate-y-1/2 opacity-20 text-5xl"></i>
+                            <div class="w-20 h-20 bg-cyan-500 rounded-full flex items-center justify-center text-black text-3xl font-black mb-6 shadow-[0_0_30px_rgba(0,242,255,0.4)]">2</div>
+                            <h4 class="text-3xl font-bold text-white mb-2">פעולה (Action)</h4>
+                            <p class="text-lg text-slate-400">ה-CRM מעבד את המידע<br>(בדיקת מלאי, הפקת חשבונית)</p>
+                        </div>
+                        <div class="flex flex-col items-center relative">
+                            <i class="fa-solid fa-chevron-left absolute -left-5 top-1/2 -translate-y-1/2 opacity-20 text-5xl"></i>
+                            <div class="w-20 h-20 bg-white/10 rounded-full flex items-center justify-center text-3xl font-black mb-6">3</div>
+                            <h4 class="text-3xl font-bold accent-cyan mb-2">תוצאה (Result)</h4>
+                            <p class="text-lg text-slate-400">הפעולה הושלמה<br>(הלקוח קיבל קבלה ועדכון)</p>
+                        </div>
+                    </div>
+                    <div class="mt-16 pt-8 border-t border-white/10 text-center">
+                        <p class="text-4xl font-black italic text-white leading-tight">"העסק עובד בשבילכם, גם כשאתם לא שם"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Final (Identical to Original) -->
+        <div class="slide" id="s5">
+            <div class="m-auto text-center">
+                <h1 style="font-size: 150px; font-weight: 900; color: var(--accent-cyan); margin: 0; line-height: 1;">שאלות?</h1>
+                <p style="font-size: 48px; font-weight: 300; margin-top: 25px;">בואו נבנה את השלב הראשון ביחד</p>
+                <div style="width: 120px; height: 6px; background: var(--accent-cyan); margin: 40px auto;"></div>
+                <p class="text-xl text-slate-500 font-mono tracking-widest uppercase">ASIVISION SMART BUSINESS INTELLIGENCE</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Fixed Navigation Controls -->
+<button class="nav-btn" style="right: 40px;" onclick="changeSlide(1)">הבא <i class="fa-solid fa-arrow-left mr-2"></i></button>
+<button class="nav-btn" style="left: 40px;" id="prevBtn" onclick="changeSlide(-1)"><i class="fa-solid fa-arrow-right mr-2"></i> הקודם</button>
+
+<script>
+    let current = 0;
+    const slides = document.querySelectorAll('.slide');
+    const prevBtn = document.getElementById('prevBtn');
+
+    function changeSlide(dir) {
+        const next = current + dir;
+        if (next < 0 || next >= slides.length) return;
+
+        // Reset classes
+        slides[current].classList.remove('active', 'slide-in-right', 'slide-in-left');
+        
+        current = next;
+        
+        // Apply new slide and animation
+        slides[current].classList.add('active');
+        if (dir > 0) slides[current].classList.add('slide-in-right');
+        else slides[current].classList.add('slide-in-left');
+
+        // Update button state
+        prevBtn.disabled = (current === 0);
+    }
+
+    // Initialize scaling to fit browser
+    function scaleDeck() {
+        const deck = document.getElementById('deck');
+        const s = Math.min(window.innerWidth / 1280, window.innerHeight / 720, 1);
+        deck.style.transform = `scale(${s})`;
+    }
+
+    window.addEventListener('resize', scaleDeck);
+    scaleDeck();
+    prevBtn.disabled = true;
+</script>
+
+</body>
+</html>
